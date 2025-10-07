@@ -6,6 +6,7 @@
 <title>Mind Hurricane — Autonomous Robotics & AI Systems</title>
 <meta name="description" content="Mind Hurricane — Autonomous Drone and Robotics Systems born in IIT Labs. Combining innovation, AI, and embedded precision for defence, policing, and agri-tech.">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+
 <style>
 /* ========= Base ========= */
 :root{
@@ -28,13 +29,18 @@ p{margin:0}
   background:linear-gradient(90deg,var(--neon-a),var(--neon-b));
   color:#000;font-weight:700;transition:transform .25s ease, box-shadow .25s ease;
 }
-.btn:hover{transform:translateY(-3px);box-shadow:0 0 18px rgba(0,255,200,.4)}
+.btn:hover{transform:translateY(-3px);box-shadow:0 0 25px rgba(0,255,200,.6)}
 .grid{display:grid;gap:28px}
 .card{
   background:var(--glass); border:1px solid var(--line); border-radius:16px; padding:24px;
-  box-shadow:0 0 24px rgba(0,255,204,.06); transition:transform .35s ease, box-shadow .35s ease;
+  box-shadow:0 0 24px rgba(0,255,204,.06); transition:transform .35s ease, box-shadow .35s ease, filter .35s ease;
+  transform-style: preserve-3d;
 }
-.card:hover{transform:translateY(-6px); box-shadow:0 0 32px rgba(0,255,136,.16)}
+.card:hover{
+  transform: translateY(-8px) rotateX(1.5deg) rotateY(-1.5deg);
+  box-shadow: 0 0 25px rgba(0,255,200,.2), 0 0 10px rgba(0,255,200,.08);
+  filter: brightness(1.1);
+}
 .sub{opacity:.9}
 
 /* ========= Navbar ========= */
@@ -48,14 +54,14 @@ nav h1{font-size:1.4rem;font-weight:900;letter-spacing:.5px}
 nav ul{list-style:none;display:flex;gap:26px;margin:0;padding:0}
 nav a{color:#fff;text-decoration:none;font-weight:600}
 nav a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc}
-.spacer{height:64px} /* pushes content below fixed nav */
+.spacer{height:64px}
 @media (max-width: 860px){ nav ul{display:none}}
 
-/* ========= Hero with particles & fade ========= */
+/* ========= Hero ========= */
 .hero{
   min-height:calc(100vh - 64px);
   display:flex; flex-direction:column; align-items:center; justify-content:center;
-  background:#000; overflow:hidden;
+  background:#000; overflow:hidden; position:relative;
 }
 .hero h1{font-size:3.5rem;font-weight:900;margin:0 0 12px}
 .hero .lead{max-width:720px;margin:0 auto 18px;opacity:.9}
@@ -63,10 +69,11 @@ nav a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc}
   width:180px;height:180px;border-radius:50%;padding:5px;margin:10px auto 18px;
   background:linear-gradient(135deg,var(--neon-a),var(--neon-b),var(--neon-c));
   animation:glow 4s ease-in-out infinite;
+  transition:transform .5s ease;
 }
-.logo-frame img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.logo-frame:hover{transform:scale(1.05) rotate(2deg)}
 
-/* canvas sits behind; gradient overlay fades to black at bottom */
+/* Particle canvas */
 #particles{position:absolute;inset:0;z-index:0}
 .hero *:not(canvas){position:relative;z-index:2}
 .hero::after{
@@ -75,45 +82,31 @@ nav a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc}
   z-index:1;
 }
 
-/* ========= About / Features ========= */
-#about p{max-width:900px;margin:0 auto}
+/* ========= Sections ========= */
 .features{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:28px}
 .feature h3{color:#00ffcc;margin:0 0 8px}
-
-/* ========= Mission / Vision ========= */
 .mv{display:flex;flex-wrap:wrap;gap:28px;justify-content:center;margin-top:28px}
 .mv .card{flex:1 1 320px;max-width:520px}
 .mv h3{color:#00ffcc;margin:0 0 10px}
-
-/* ========= Industries ========= */
 .industries{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:20px}
 .industry h4{color:#00ffcc;margin:0 0 6px}
-
-/* ========= Tech Stack ========= */
 .tech-row{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:24px}
-.tech{border:1px solid var(--line);background:#0b1223;border-radius:40px;padding:12px 18px}
+.tech{border:1px solid var(--line);background:#0b1223;border-radius:40px;padding:12px 18px;transition:transform .3s ease}
 .tech span{color:#00ffcc;font-weight:600}
-
-/* ========= Products ========= */
+.tech:hover{transform:scale(1.08)}
 .products{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:22px}
 .product img{border-radius:12px;margin-bottom:12px;display:block;width:100%;height:180px;object-fit:cover}
 .product h3{color:#00ffcc;margin:4px 0 8px}
-
-/* ========= Team ========= */
 .team{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:22px}
 .member img{width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto 10px}
 .member h4{color:#00ffcc;margin:6px 0}
-
-/* ========= Partners ========= */
 .partners{display:flex;flex-wrap:wrap;gap:40px;justify-content:center;align-items:center;margin-top:18px;opacity:.85}
 .partners img{height:60px;filter:brightness(0) invert(1);opacity:.82;transition:.3s}
 .partners img:hover{opacity:1;transform:scale(1.05)}
-
-/* ========= CTA ========= */
 #cta{background:linear-gradient(135deg,#001f33 0%,#000 100%)}
 #cta .sub{max-width:760px;margin:0 auto 10px}
 
-/* ========= Contact ========= */
+/* ========= Contact / Map ========= */
 .contact-box{max-width:640px;margin:18px auto 0}
 input,textarea{
   width:100%;padding:12px 14px;border:none;border-radius:10px;background:#111a2f;color:#fff;
@@ -121,6 +114,20 @@ input,textarea{
 }
 #contact button{background:linear-gradient(90deg,var(--neon-a),var(--neon-b));border:none;color:#000;padding:.9rem 2rem;border-radius:40px;font-weight:700;cursor:pointer}
 #contact button:hover{transform:translateY(-2px)}
+.map-box{
+  position:relative;overflow:hidden;border-radius:16px;border:1px solid rgba(0,255,204,.15);
+  box-shadow:0 0 40px rgba(0,255,200,.1);margin-top:25px
+}
+.map-box::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 50%,rgba(0,255,204,.08) 0%,transparent 70%);
+  pointer-events:none
+}
+.map-box iframe{
+  width:100%;height:450px;border:0;border-radius:16px;filter:brightness(0.85) contrast(1.2);
+  transition:filter .6s ease;
+}
+.map-box iframe:hover{filter:brightness(1) contrast(1.1) saturate(1.2)}
 
 /* ========= Footer ========= */
 footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacity:.85}
@@ -128,22 +135,12 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 /* ========= Scroll reveal ========= */
 .reveal{opacity:0;transform:translateY(50px);transition:opacity .9s ease, transform .9s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
-/* optional staggering using data-delay attr */
-.reveal[data-delay]{transition-delay:var(--d,0s)}
-.reveal[data-delay]{--d: attr(data-delay number, 0s)} /* (fallback if attr() not supported; JS sets inline style) */
-
-/* ========= Motion preferences ========= */
-@media (prefers-reduced-motion: reduce){
-  .reveal{opacity:1;transform:none}
-  .btn,.card{transition:none}
-  .logo-frame{animation:none}
-}
 
 /* ========= Keyframes ========= */
 @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(0,255,136,.4)}50%{box-shadow:0 0 40px rgba(0,255,136,.8)}}
 
-/* ========= Responsive tweaks ========= */
-@media (max-width: 720px){
+/* ========= Responsive ========= */
+@media (max-width:720px){
   .hero h1{font-size:2.6rem}
   section{padding:80px 6%}
 }
@@ -162,37 +159,26 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
-<div class="spacer" aria-hidden="true"></div>
+<div class="spacer"></div>
 
 <!-- ===== HERO ===== -->
 <section id="hero" class="hero">
-  <canvas id="particles" aria-hidden="true"></canvas>
-  <h1 class="gradient-text reveal" data-delay=".05s">Mind Hurricane</h1>
-  <div class="logo-frame reveal" data-delay=".12s">
-    <img src="https://i.ibb.co/bRK52FS6/mind-hurricane-logo.png" alt="Mind Hurricane Logo">
-  </div>
-  <p class="lead reveal" data-delay=".18s">Autonomous Drones & Robotics Systems — Bridging IIT Innovation with Real-World Intelligence</p>
-  <a href="#about" class="btn reveal" data-delay=".26s">Explore</a>
+  <canvas id="particles"></canvas>
+  <h1 class="gradient-text reveal">Mind Hurricane</h1>
+  <div class="logo-frame reveal"><img src="https://i.ibb.co/bRK52FS6/mind-hurricane-logo.png" alt="Mind Hurricane Logo"></div>
+  <p class="lead reveal">Autonomous Drones & Robotics Systems — Bridging IIT Innovation with Real-World Intelligence</p>
+  <a href="#about" class="btn reveal">Explore</a>
 </section>
 
 <!-- ===== ABOUT ===== -->
 <section id="about">
   <h2 class="gradient-text reveal">About Us</h2>
-  <p class="sub reveal" data-delay=".08s"><strong>Mind Hurricane</strong> is an IIT-incubated robotics and AI startup developing next-generation autonomous systems for defence, policing, and agri-tech sectors. We combine advanced machine intelligence, embedded precision, and rugged design to build hardware that thinks — and acts — autonomously.</p>
+  <p class="sub reveal"><strong>Mind Hurricane</strong> is an IIT-incubated robotics and AI startup developing next-generation autonomous systems for defence, policing, and agri-tech sectors. We combine advanced machine intelligence, embedded precision, and rugged design to build hardware that thinks — and acts — autonomously.</p>
 
   <div class="grid features">
-    <article class="card feature reveal" data-delay=".06s">
-      <h3>Born in IIT Labs</h3>
-      <p class="sub">Engineers and researchers with IIT expertise in robotics, embedded systems, and AI.</p>
-    </article>
-    <article class="card feature reveal" data-delay=".12s">
-      <h3>AI-Powered Autonomy</h3>
-      <p class="sub">Adaptive decision-making, real-time mapping, and mission optimization at the edge.</p>
-    </article>
-    <article class="card feature reveal" data-delay=".18s">
-      <h3>Reliable & Field-Tested</h3>
-      <p class="sub">Ruggedized platforms validated in harsh environments and real deployments.</p>
-    </article>
+    <div class="card feature reveal"><h3>Born in IIT Labs</h3><p class="sub">Engineers and researchers with IIT expertise in robotics, embedded systems, and AI.</p></div>
+    <div class="card feature reveal"><h3>AI-Powered Autonomy</h3><p class="sub">Adaptive decision-making, real-time mapping, and mission optimization at the edge.</p></div>
+    <div class="card feature reveal"><h3>Reliable & Field-Tested</h3><p class="sub">Ruggedized platforms validated in harsh environments and real deployments.</p></div>
   </div>
 </section>
 
@@ -200,14 +186,8 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 <section id="mission">
   <h2 class="gradient-text reveal">Mission & Vision</h2>
   <div class="mv">
-    <div class="card reveal" data-delay=".06s">
-      <h3>Our Mission</h3>
-      <p class="sub">Democratize intelligent autonomy by delivering field-ready robotics that enhance human capability, security, and sustainability.</p>
-    </div>
-    <div class="card reveal" data-delay=".12s">
-      <h3>Our Vision</h3>
-      <p class="sub">Make India a global hub for autonomous robotics — uniting Make-in-India values with world-class research and deployment.</p>
-    </div>
+    <div class="card reveal"><h3>Our Mission</h3><p class="sub">Democratize intelligent autonomy by delivering field-ready robotics that enhance human capability, security, and sustainability.</p></div>
+    <div class="card reveal"><h3>Our Vision</h3><p class="sub">Make India a global hub for autonomous robotics — uniting Make-in-India values with world-class research and deployment.</p></div>
   </div>
 </section>
 
@@ -215,36 +195,24 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 <section id="industries">
   <h2 class="gradient-text reveal">Industries We Serve</h2>
   <div class="grid industries">
-    <div class="card industry reveal" data-delay=".04s">
-      <h4>Defence & Surveillance</h4>
-      <p class="sub">Autonomous aerial and ground systems for reconnaissance, perimeter patrol, and real-time threat detection.</p>
-    </div>
-    <div class="card industry reveal" data-delay=".1s">
-      <h4>Law Enforcement</h4>
-      <p class="sub">AI-powered surveillance drones for policing, crowd monitoring, and rapid emergency response.</p>
-    </div>
-    <div class="card industry reveal" data-delay=".16s">
-      <h4>Agriculture</h4>
-      <p class="sub">Precision spraying, crop health analytics, and yield prediction for sustainable farming.</p>
-    </div>
-    <div class="card industry reveal" data-delay=".22s">
-      <h4>Research & Education</h4>
-      <p class="sub">Custom robotics kits and simulation frameworks for universities and R&D labs.</p>
-    </div>
+    <div class="card industry reveal"><h4>Defence & Surveillance</h4><p class="sub">Autonomous aerial and ground systems for reconnaissance and perimeter patrol.</p></div>
+    <div class="card industry reveal"><h4>Law Enforcement</h4><p class="sub">AI-powered drones for policing, crowd monitoring, and emergency response.</p></div>
+    <div class="card industry reveal"><h4>Agriculture</h4><p class="sub">Precision spraying, crop health analytics, and yield prediction for sustainable farming.</p></div>
+    <div class="card industry reveal"><h4>Research & Education</h4><p class="sub">Custom robotics kits and simulation frameworks for universities and R&D labs.</p></div>
   </div>
 </section>
 
-<!-- ===== TECH STACK ===== -->
+<!-- ===== TECH ===== -->
 <section id="tech">
   <h2 class="gradient-text reveal">Our Technology Stack</h2>
   <div class="tech-row">
-    <div class="tech reveal" data-delay=".04s"><span>Embedded C / C++</span></div>
-    <div class="tech reveal" data-delay=".08s"><span>ROS 2</span></div>
-    <div class="tech reveal" data-delay=".12s"><span>TensorFlow</span></div>
-    <div class="tech reveal" data-delay=".16s"><span>OpenCV</span></div>
-    <div class="tech reveal" data-delay=".2s"><span>Python</span></div>
-    <div class="tech reveal" data-delay=".24s"><span>NVIDIA Jetson / RPi</span></div>
-    <div class="tech reveal" data-delay=".28s"><span>SLAM & NavStack</span></div>
+    <div class="tech reveal"><span>Embedded C / C++</span></div>
+    <div class="tech reveal"><span>ROS 2</span></div>
+    <div class="tech reveal"><span>TensorFlow</span></div>
+    <div class="tech reveal"><span>OpenCV</span></div>
+    <div class="tech reveal"><span>Python</span></div>
+    <div class="tech reveal"><span>NVIDIA Jetson / RPi</span></div>
+    <div class="tech reveal"><span>SLAM & NavStack</span></div>
   </div>
 </section>
 
@@ -252,21 +220,21 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 <section id="products">
   <h2 class="gradient-text reveal">Our Innovations</h2>
   <div class="grid products">
-    <article class="card product reveal" data-delay=".06s">
-      <img src="https://i.ibb.co/NF7xkrv/drone1.jpg" alt="MH-AeroX autonomous drone in flight">
+    <div class="card product reveal">
+      <img src="https://i.ibb.co/NF7xkrv/drone1.jpg" alt="MH-AeroX autonomous drone">
       <h3>MH-AeroX Drone</h3>
-      <p class="sub">Fully autonomous aerial surveillance with AI object detection, 4K optics, encrypted links, and up to 60-min endurance.</p>
-    </article>
-    <article class="card product reveal" data-delay=".12s">
+      <p class="sub">Fully autonomous aerial surveillance with AI object detection, 4K optics, and 60-min endurance.</p>
+    </div>
+    <div class="card product reveal">
       <img src="https://i.ibb.co/B4WrX8L/robot1.jpg" alt="TerraBot all-terrain rover">
       <h3>TerraBot Rover</h3>
       <p class="sub">All-terrain robotic assistant for inspection, mapping, and payload handling across defence and industry.</p>
-    </article>
-    <article class="card product reveal" data-delay=".18s">
+    </div>
+    <div class="card product reveal">
       <img src="https://i.ibb.co/CKhjLnb/controlstation.jpg" alt="Command Core control station UI">
       <h3>Command Core</h3>
       <p class="sub">Unified ground-control integrating telemetry, live vision, AI mission planning, and multi-unit coordination.</p>
-    </article>
+    </div>
   </div>
 </section>
 
@@ -274,21 +242,9 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 <section id="team">
   <h2 class="gradient-text reveal">Our Team</h2>
   <div class="grid team">
-    <div class="card member reveal" data-delay=".06s">
-      <img src="https://i.ibb.co/DfMgbfB/team1.jpg" alt="Vivek Sharma">
-      <h4>Vivek Sharma</h4>
-      <p class="sub">Founder & Robotics Engineer</p>
-    </div>
-    <div class="card member reveal" data-delay=".12s">
-      <img src="https://i.ibb.co/zsGcZLp/team2.jpg" alt="Dr. Neha R.">
-      <h4>Dr. Neha R.</h4>
-      <p class="sub">AI Systems Architect</p>
-    </div>
-    <div class="card member reveal" data-delay=".18s">
-      <img src="https://i.ibb.co/rdVhH2m/team3.jpg" alt="Arjun Patel">
-      <h4>Arjun Patel</h4>
-      <p class="sub">Embedded Hardware Lead</p>
-    </div>
+    <div class="card member reveal"><img src="https://i.ibb.co/DfMgbfB/team1.jpg" alt="Vivek Sharma"><h4>Vivek Sharma</h4><p class="sub">Founder & Robotics Engineer</p></div>
+    <div class="card member reveal"><img src="https://i.ibb.co/zsGcZLp/team2.jpg" alt="Dr. Neha R."><h4>Dr. Neha R.</h4><p class="sub">AI Systems Architect</p></div>
+    <div class="card member reveal"><img src="https://i.ibb.co/rdVhH2m/team3.jpg" alt="Arjun Patel"><h4>Arjun Patel</h4><p class="sub">Embedded Hardware Lead</p></div>
   </div>
 </section>
 
@@ -296,96 +252,67 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 <section id="partners">
   <h2 class="gradient-text reveal">Collaborations & Partners</h2>
   <div class="partners">
-    <img class="reveal" data-delay=".06s" src="https://upload.wikimedia.org/wikipedia/en/6/6b/IIT_Ropar_logo.png" alt="IIT Ropar">
-    <img class="reveal" data-delay=".12s" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Make_In_India_logo.svg" alt="Make in India">
-    <img class="reveal" data-delay=".18s" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/DRDO_India_Logo.svg" alt="DRDO">
+    <img class="reveal" src="https://upload.wikimedia.org/wikipedia/en/6/6b/IIT_Ropar_logo.png" alt="IIT Ropar">
+    <img class="reveal" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Make_In_India_logo.svg" alt="Make in India">
+    <img class="reveal" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/DRDO_India_Logo.svg" alt="DRDO">
   </div>
 </section>
 
 <!-- ===== CTA ===== -->
 <section id="cta">
   <h2 class="gradient-text reveal">Ready to Collaborate?</h2>
-  <p class="sub reveal" data-delay=".08s">Partner with Mind Hurricane to bring autonomous intelligence to your domain — from defence and policing to smart agriculture and research.</p>
-  <a href="#contact" class="btn reveal" data-delay=".16s">Get in Touch</a>
+  <p class="sub reveal">Partner with Mind Hurricane to bring autonomous intelligence to your domain — from defence and policing to smart agriculture and research.</p>
+  <a href="#contact" class="btn reveal">Get in Touch</a>
 </section>
 
 <!-- ===== CONTACT ===== -->
 <section id="contact">
   <h2 class="gradient-text reveal">Contact Us</h2>
-  <p class="sub reveal" data-delay=".06s">We’re open to collaborations, pilots, and research partnerships.</p>
-  <div class="card contact-box reveal" data-delay=".12s">
+  <p class="sub reveal">We’re open to collaborations, pilots, and research partnerships.</p>
+
+  <div class="card contact-box reveal">
     <form onsubmit="event.preventDefault(); window.open('https://mail.google.com/mail/?view=cm&fs=1&to=mindhurricane.tech@gmail.com','_blank')">
-      <input name="name" type="text" placeholder="Your Name" required aria-label="Your Name">
-      <input name="email" type="email" placeholder="Your Email" required aria-label="Your Email">
-      <textarea name="message" rows="5" placeholder="Your Message" required aria-label="Your Message"></textarea>
+      <input name="name" type="text" placeholder="Your Name" required>
+      <input name="email" type="email" placeholder="Your Email" required>
+      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
       <button type="submit">Submit</button>
     </form>
   </div>
-  <p class="sub reveal" data-delay=".18s">📧 <strong>Email:</strong> <a href="mailto:mindhurricane.tech@gmail.com">mindhurricane.tech@gmail.com</a></p>
-  <p class="sub reveal" data-delay=".22s" style="margin-top:8px">
-    Technology Business Incubator Foundation, Top Floor (East Wing), M. Visvesvaraya Block, IIT Ropar, Rupnagar – 140001, Punjab, India
+
+  <p class="sub reveal">📧 <strong>Email:</strong> <a href="mailto:mindhurricane.tech@gmail.com">mindhurricane.tech@gmail.com</a></p>
+
+  <div class="map-box reveal">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3421.065664751018!2d76.47140267620014!3d30.9686496741917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390555f908989215%3A0x7c69dadcbc7de4b4!2sMind%20Hurricane!5e0!3m2!1sen!2sin!4v1759856044109!5m2!1sen!2sin" loading="lazy" allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+
+  <p class="sub reveal" style="margin-top:8px">
+    Technology Business Incubator Foundation,<br>
+    Top Floor (East Wing), M. Visvesvaraya Block,<br>
+    Indian Institute of Technology Ropar,<br>
+    Rupnagar – 140001, Punjab, India.
   </p>
 </section>
 
 <footer>© 2025 Mind Hurricane • Incubated at IIT Ropar • Made with ⚡ in India</footer>
 
-<!-- ========= Scripts ========= -->
+<!-- ===== Scripts ===== -->
 <script>
-/* ===== Particles (with bottom fade via hero::after overlay) ===== */
-const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
+/* ===== Particles ===== */
+const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
 let w,h,particles=[];
-
-function resize(){ w = canvas.width = innerWidth; h = canvas.height = document.getElementById('hero').offsetHeight; }
-addEventListener('resize', resize, {passive:true}); resize();
-
+function resize(){w=canvas.width=innerWidth;h=canvas.height=document.getElementById('hero').offsetHeight;}
+window.addEventListener('resize',resize,{passive:true});resize();
 class Particle{
-  constructor(){ this.reset(true); }
-  reset(spawnAnywhere=false){
-    this.x = Math.random()*w;
-    this.y = spawnAnywhere ? Math.random()*h : (Math.random()*h*0.5); // bias to upper half
-    this.vx = (Math.random()-0.5)*0.5;
-    this.vy = (Math.random()-0.5)*0.5;
-    this.size = Math.random()*2 + 0.6;
-  }
-  step(){
-    this.x += this.vx; this.y += this.vy;
-    if(this.x<0||this.x>w||this.y<0||this.y>h) this.reset();
-  }
-  draw(){
-    ctx.beginPath();
-    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-    ctx.fillStyle='rgba(0,255,204,0.5)';
-    ctx.fill();
-  }
+ constructor(){this.reset(true);}
+ reset(spawnAnywhere=false){this.x=Math.random()*w;this.y=spawnAnywhere?Math.random()*h:(Math.random()*h*0.6);this.vx=(Math.random()-.5)*.5;this.vy=(Math.random()-.5)*.5;this.size=Math.random()*2+0.6;}
+ step(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>w||this.y<0||this.y>h)this.reset();}
+ draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fillStyle='rgba(0,255,204,0.5)';ctx.fill();}
 }
-for(let i=0;i<120;i++) particles.push(new Particle());
+for(let i=0;i<120;i++)particles.push(new Particle());
+function animate(){ctx.clearRect(0,0,w,h);for(const p of particles){p.step();p.draw();}requestAnimationFrame(animate);}animate();
 
-function animate(){
-  ctx.clearRect(0,0,w,h);
-  // subtle vignette at top for depth
-  const grad = ctx.createRadialGradient(w*0.5,h*0.1,0,w*0.5,h*0.1,Math.max(w,h));
-  grad.addColorStop(0,'rgba(0,30,40,0.25)');
-  grad.addColorStop(1,'rgba(0,0,0,0)');
-  ctx.fillStyle = grad; ctx.fillRect(0,0,w,h);
-
-  for(const p of particles){ p.step(); p.draw(); }
-  requestAnimationFrame(animate);
-}
-animate();
-
-/* ===== Scroll reveal (IntersectionObserver) ===== */
-const io = new IntersectionObserver((entries)=>{
-  for(const ent of entries){
-    if(ent.isIntersecting){
-      const delay = ent.target.dataset.delay || '0s';
-      ent.target.style.transitionDelay = delay;
-      ent.target.classList.add('visible');
-      io.unobserve(ent.target);
-    }
-  }
-},{root:null, rootMargin:'0px 0px -10% 0px', threshold:0.15});
-
+/* ===== Scroll reveal ===== */
+const io=new IntersectionObserver((entries)=>{for(const e of entries){if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}}},{threshold:0.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
 </body>

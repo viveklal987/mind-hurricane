@@ -276,4 +276,21 @@ footer{background:#000;border-top:1px solid rgba(0,255,204,.1);padding:30px 8%;t
 </footer>
 
 <!-- PARTICLES BACKGROUND -->
-<script
+<script>
+const canvas=document.getElementById('particles');
+const ctx=canvas.getContext('2d');
+let w,h,particles=[];
+function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;}
+window.addEventListener('resize',resize);resize();
+class Particle{
+ constructor(){this.reset();}
+ reset(){this.x=Math.random()*w;this.y=Math.random()*h;this.vx=(Math.random()-.5)*.6;this.vy=(Math.random()-.5)*.6;this.size=Math.random()*2+0.5;}
+ draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,2*Math.PI);ctx.fillStyle='rgba(0,255,204,.4)';ctx.fill();}
+ update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>w||this.y<0||this.y>h)this.reset();}
+}
+for(let i=0;i<120;i++)particles.push(new Particle());
+function loop(){ctx.clearRect(0,0,w,h);for(let p of particles){p.update();p.draw();}requestAnimationFrame(loop);}
+loop();
+</script>
+</body>
+</html>

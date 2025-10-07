@@ -7,26 +7,27 @@
 <meta name="description" content="Mind Hurricane — Autonomous Drone and Robotics Systems born in IIT Labs. Combining innovation, AI, and embedded precision for defence, policing, and agri-tech.">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
-/* Base */
 html,body{margin:0;padding:0;width:100%;background:#000;color:#fff;font-family:'Poppins',sans-serif;scroll-behavior:smooth;overflow-x:hidden;}
-section{width:100%;padding:80px 8%;box-sizing:border-box;text-align:center;position:relative;}
+section{width:100%;padding:90px 8%;box-sizing:border-box;text-align:center;position:relative;}
 img,svg{max-width:100%;display:block;margin:auto;height:auto;}
 a{text-decoration:none;color:inherit;}
+h2{font-size:2.4rem;font-weight:800;margin-bottom:15px;}
 
 /* Gradient text */
 .gradient-text{background:linear-gradient(90deg,#00bfff,#00ff88,#ff00ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
 /* Navbar */
-nav{position:fixed;top:0;left:0;width:100%;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);display:flex;justify-content:space-between;align-items:center;padding:12px 8%;z-index:1000;border-bottom:1px solid rgba(0,255,204,.2);}
+nav{position:fixed;top:0;left:0;width:100%;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:12px 8%;z-index:1000;border-bottom:1px solid rgba(0,255,204,.2);}
 nav h1{font-size:1.4rem;font-weight:900;letter-spacing:1px;}
 nav ul{display:flex;gap:25px;list-style:none;}
 nav ul li a{font-weight:600;transition:.3s;}
 nav ul li a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc;}
+@media(max-width:768px){nav ul{display:none;}}
 
 /* Hero */
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 20% 20%,#001220 0%,#000 80%);overflow:hidden;}
 .hero h1{font-size:3.5rem;font-weight:900;margin:0 0 20px;}
-.hero p{font-size:1.1rem;opacity:.9;margin-bottom:25px;}
+.hero p{font-size:1.1rem;opacity:.9;margin-bottom:25px;max-width:640px;}
 .logo-frame{width:180px;height:180px;border-radius:50%;padding:5px;margin:0 auto 20px;background:linear-gradient(135deg,#00bfff,#00ff88,#ff00ff);animation:glow 4s ease-in-out infinite;}
 .logo-frame img{width:100%;height:100%;border-radius:50%;object-fit:cover;}
 .btn{display:inline-block;background:linear-gradient(90deg,#00bfff,#00ff88);color:#000;font-weight:700;padding:.9rem 2.2rem;border-radius:40px;transition:.3s;}
@@ -36,18 +37,29 @@ nav ul li a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc;}
 #particles{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;}
 .hero *:not(canvas){position:relative;z-index:2;}
 
-/* Why Us */
-#whyus h2{font-size:2.4rem;font-weight:800;margin-bottom:15px;}
-#whyus p{max-width:720px;margin:10px auto;font-size:1rem;line-height:1.6;opacity:.9;}
-
-/* Features */
+/* About / Why */
+#about p{max-width:800px;margin:10px auto;font-size:1.05rem;line-height:1.7;opacity:.9;}
 .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;margin-top:40px;}
 .feature{background:#0a0f1e;border:1px solid rgba(0,255,204,.1);border-radius:16px;padding:25px;transition:.4s;}
 .feature:hover{transform:translateY(-6px);box-shadow:0 0 25px rgba(0,255,136,.15);}
 .feature h3{color:#00ffcc;font-size:1.3rem;margin-bottom:10px;}
 
+/* Mission/Vision */
+.mission-container{display:flex;flex-wrap:wrap;gap:40px;justify-content:center;margin-top:40px;}
+.mission-box{flex:1 1 300px;max-width:420px;background:#0a0f1e;border:1px solid rgba(0,255,204,.1);border-radius:16px;padding:25px;}
+.mission-box h3{color:#00ffcc;margin-bottom:10px;}
+
+/* Industries */
+.industries{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:25px;margin-top:30px;}
+.industry{background:#0a0f1e;padding:25px;border-radius:16px;border:1px solid rgba(0,255,204,.1);}
+.industry h4{color:#00ffcc;margin-bottom:8px;}
+
+/* Tech stack */
+.tech-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:25px;margin-top:35px;}
+.tech-item{background:#0a0f1e;padding:20px 30px;border-radius:40px;border:1px solid rgba(0,255,204,.1);}
+.tech-item span{color:#00ffcc;font-weight:600;}
+
 /* Products */
-#products h2{font-size:2.2rem;font-weight:800;margin-bottom:12px;}
 .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;margin-top:30px;}
 .product{background:#0a0f1e;padding:25px;border-radius:16px;border:1px solid rgba(0,255,204,.1);box-shadow:0 0 25px rgba(0,255,204,.05);transition:.4s;}
 .product:hover{transform:translateY(-6px);box-shadow:0 0 30px rgba(0,255,136,.15);}
@@ -56,11 +68,20 @@ nav ul li a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc;}
 .product p{opacity:.85;}
 
 /* Team */
-#team h2{font-size:2.2rem;font-weight:800;margin-bottom:20px;}
 .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:30px;margin-top:30px;}
 .member{background:#0a0f1e;padding:20px;border-radius:12px;border:1px solid rgba(0,255,204,.1);}
 .member img{border-radius:50%;width:120px;height:120px;object-fit:cover;margin:auto;margin-bottom:10px;}
 .member h4{color:#00ffcc;margin-bottom:6px;}
+
+/* Partners */
+.partners{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:40px;margin-top:30px;opacity:.85;}
+.partners img{height:60px;filter:brightness(0) invert(1);opacity:.8;transition:.3s;}
+.partners img:hover{opacity:1;transform:scale(1.05);}
+
+/* CTA */
+#cta{background:linear-gradient(135deg,#001f33 0%,#000 100%);padding:80px 8%;text-align:center;}
+#cta h2{margin-bottom:15px;}
+#cta p{max-width:700px;margin:auto;opacity:.9;margin-bottom:25px;}
 
 /* Contact */
 #contact .contact-box{background:#0a0f1e;border:1px solid rgba(0,255,204,.1);border-radius:15px;padding:25px;max-width:600px;margin:20px auto;box-shadow:0 0 25px rgba(0,255,204,.08);}
@@ -75,10 +96,6 @@ footer{background:#000;border-top:1px solid rgba(0,255,204,.1);padding:30px 8%;t
 
 /* Animations */
 @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(0,255,136,.4);}50%{box-shadow:0 0 40px rgba(0,255,136,.8);}}
-@media(max-width:768px){
-  .hero h1{font-size:2.6rem;}
-  nav ul{display:none;}
-}
 </style>
 </head>
 <body>
@@ -88,8 +105,9 @@ footer{background:#000;border-top:1px solid rgba(0,255,204,.1);padding:30px 8%;t
   <h1 class="gradient-text">Mind Hurricane</h1>
   <ul>
     <li><a href="#hero">Home</a></li>
-    <li><a href="#whyus">About</a></li>
+    <li><a href="#about">About</a></li>
     <li><a href="#products">Products</a></li>
+    <li><a href="#industries">Industries</a></li>
     <li><a href="#team">Team</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -100,27 +118,79 @@ footer{background:#000;border-top:1px solid rgba(0,255,204,.1);padding:30px 8%;t
   <canvas id="particles"></canvas>
   <h1 class="gradient-text">Mind Hurricane</h1>
   <div class="logo-frame"><img src="https://i.ibb.co/bRK52FS6/mind-hurricane-logo.png" alt="Mind Hurricane Logo"></div>
-  <p>Autonomous Drone & Robotics Systems — Powered by IIT Innovation</p>
-  <a href="#contact" class="btn">Contact Us</a>
+  <p>Autonomous Drones & Robotics Systems — Bridging IIT Innovation with Real-World Intelligence</p>
+  <a href="#about" class="btn">Explore</a>
 </section>
 
-<!-- WHY US -->
-<section id="whyus">
-  <h2 class="gradient-text">Why Choose Mind Hurricane?</h2>
-  <p><strong>Born in IIT Labs</strong>, Mind Hurricane merges deep research with real-world field testing. Our engineers bring IIT-grade precision, embedded intelligence, and autonomy into every drone and robotic kit.</p>
+<!-- ABOUT -->
+<section id="about">
+  <h2 class="gradient-text">About Us</h2>
+  <p><strong>Mind Hurricane</strong> is an IIT-incubated robotics and AI startup developing next-generation autonomous systems for defence, policing, and agri-tech sectors. We combine advanced machine intelligence, embedded precision, and rugged design to build hardware that thinks — and acts — autonomously.</p>
   <div class="features">
     <div class="feature">
-      <h3>AI-Driven Autonomy</h3>
-      <p>Adaptive flight algorithms that react to environment, obstacles, and mission parameters in real time.</p>
+      <h3>Born in IIT Labs</h3>
+      <p>Built by engineers, researchers, and innovators trained under IIT expertise in robotics, embedded systems, and artificial intelligence.</p>
     </div>
     <div class="feature">
-      <h3>Defence-Ready Tech</h3>
-      <p>Field-tested reliability for surveillance, patrolling, and tactical operations with encrypted control links.</p>
+      <h3>AI-Powered Autonomy</h3>
+      <p>Self-learning drones and rovers capable of adaptive decision-making, real-time mapping, and mission optimization.</p>
     </div>
     <div class="feature">
-      <h3>Agri-Tech Integration</h3>
-      <p>Smart aerial systems for crop monitoring, precision spraying, and predictive soil analytics.</p>
+      <h3>Reliable & Field-Tested</h3>
+      <p>Every prototype undergoes harsh environment and field testing to meet industry-grade reliability and precision.</p>
     </div>
+  </div>
+</section>
+
+<!-- MISSION & VISION -->
+<section id="mission">
+  <h2 class="gradient-text">Mission & Vision</h2>
+  <div class="mission-container">
+    <div class="mission-box">
+      <h3>Our Mission</h3>
+      <p>To democratize access to intelligent autonomous technologies by delivering field-ready, AI-driven robotics solutions that enhance human capability, security, and sustainability.</p>
+    </div>
+    <div class="mission-box">
+      <h3>Our Vision</h3>
+      <p>To make India a global hub for autonomous robotics innovation — combining Make-in-India values with world-class research and real-world deployment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section id="industries">
+  <h2 class="gradient-text">Industries We Serve</h2>
+  <div class="industries">
+    <div class="industry">
+      <h4>Defence & Surveillance</h4>
+      <p>Autonomous aerial and ground systems for reconnaissance, perimeter patrol, and real-time threat detection.</p>
+    </div>
+    <div class="industry">
+      <h4>Law Enforcement</h4>
+      <p>AI-powered surveillance drones for policing, crowd monitoring, and rapid emergency response.</p>
+    </div>
+    <div class="industry">
+      <h4>Agriculture</h4>
+      <p>Precision drone spraying, crop health analytics, and yield prediction for sustainable farming.</p>
+    </div>
+    <div class="industry">
+      <h4>Research & Education</h4>
+      <p>Custom robotics kits and simulation frameworks for universities and R&D labs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="tech">
+  <h2 class="gradient-text">Our Technology Stack</h2>
+  <div class="tech-grid">
+    <div class="tech-item"><span>Embedded C / C++</span></div>
+    <div class="tech-item"><span>ROS 2</span></div>
+    <div class="tech-item"><span>TensorFlow</span></div>
+    <div class="tech-item"><span>OpenCV</span></div>
+    <div class="tech-item"><span>Python</span></div>
+    <div class="tech-item"><span>Jetson / Raspberry Pi</span></div>
+    <div class="tech-item"><span>Autonomous Navigation SLAM</span></div>
   </div>
 </section>
 
@@ -131,17 +201,17 @@ footer{background:#000;border-top:1px solid rgba(0,255,204,.1);padding:30px 8%;t
     <div class="product">
       <img src="https://i.ibb.co/NF7xkrv/drone1.jpg" alt="Autonomous Drone">
       <h3>MH-AeroX Drone</h3>
-      <p>Fully autonomous aerial surveillance platform with 4K optics and 60-min endurance.</p>
+      <p>Fully autonomous aerial surveillance platform with AI-based object detection, 4K optics, and 60-min endurance.</p>
     </div>
     <div class="product">
       <img src="https://i.ibb.co/B4WrX8L/robot1.jpg" alt="Ground Rover">
       <h3>TerraBot Rover</h3>
-      <p>All-terrain robotic assistant for inspection, mapping, and remote payload handling.</p>
+      <p>All-terrain robotic assistant for inspection, mapping, and payload handling — deployable across defence and industry.</p>
     </div>
     <div class="product">
       <img src="https://i.ibb.co/CKhjLnb/controlstation.jpg" alt="Control System">
       <h3>Command Core</h3>
-      <p>Unified ground-control software integrating telemetry, live vision, and AI mission planning.</p>
+      <p>Unified ground-control software integrating telemetry, live vision, AI mission planning, and multi-unit coordination.</p>
     </div>
   </div>
 </section>
@@ -151,27 +221,44 @@ footer{background:#000;border-top:1px solid rgba(0,255,204,.1);padding:30px 8%;t
   <h2 class="gradient-text">Our Team</h2>
   <div class="team-grid">
     <div class="member">
-      <img src="https://i.ibb.co/DfMgbfB/team1.jpg" alt="Team Member">
+      <img src="https://i.ibb.co/DfMgbfB/team1.jpg" alt="Vivek Sharma">
       <h4>Vivek Sharma</h4>
-      <p>Founder & Lead Engineer</p>
+      <p>Founder & Robotics Engineer</p>
     </div>
     <div class="member">
-      <img src="https://i.ibb.co/zsGcZLp/team2.jpg" alt="Team Member">
+      <img src="https://i.ibb.co/zsGcZLp/team2.jpg" alt="Neha R.">
       <h4>Dr. Neha R.</h4>
       <p>AI Systems Architect</p>
     </div>
     <div class="member">
-      <img src="https://i.ibb.co/rdVhH2m/team3.jpg" alt="Team Member">
+      <img src="https://i.ibb.co/rdVhH2m/team3.jpg" alt="Arjun Patel">
       <h4>Arjun Patel</h4>
       <p>Embedded Hardware Lead</p>
     </div>
   </div>
 </section>
 
+<!-- PARTNERS -->
+<section id="partners">
+  <h2 class="gradient-text">Collaborations & Partners</h2>
+  <div class="partners">
+    <img src="https://upload.wikimedia.org/wikipedia/en/6/6b/IIT_Ropar_logo.png" alt="IIT Ropar">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Make_In_India_logo.svg" alt="Make in India">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/DRDO_India_Logo.svg" alt="DRDO">
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <h2 class="gradient-text">Ready to Collaborate?</h2>
+  <p>Partner with Mind Hurricane to bring autonomous intelligence to your domain — from defense and policing to smart agriculture and research.</p>
+  <a href="#contact" class="btn">Get in Touch</a>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
-  <h2 class="gradient-text">Get in Touch</h2>
-  <p>Have a question or collaboration idea? We’d love to hear from you.</p>
+  <h2 class="gradient-text">Contact Us</h2>
+  <p>We’re always open to collaborations, partnerships, and ideas that challenge the status quo.</p>
   <div class="contact-box">
     <form>
       <input type="text" placeholder="Your Name" required>
@@ -185,25 +272,8 @@ footer{background:#000;border-top:1px solid rgba(0,255,204,.1);padding:30px 8%;t
 
 <!-- FOOTER -->
 <footer>
-  © 2025 Mind Hurricane | Developed in IIT Ropar | Made with ⚡ in India
+  © 2025 Mind Hurricane | Incubated at IIT Ropar | Made with ⚡ in India
 </footer>
 
-<!-- PARTICLES JS -->
-<script>
-const canvas=document.getElementById('particles');
-const ctx=canvas.getContext('2d');
-let w,h,particles=[];
-function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;}
-window.addEventListener('resize',resize);resize();
-class Particle{
- constructor(){this.reset();}
- reset(){this.x=Math.random()*w;this.y=Math.random()*h;this.vx=(Math.random()-.5)*.6;this.vy=(Math.random()-.5)*.6;this.size=Math.random()*2+0.5;}
- draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,2*Math.PI);ctx.fillStyle='rgba(0,255,204,.4)';ctx.fill();}
- update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>w||this.y<0||this.y>h)this.reset();}
-}
-for(let i=0;i<120;i++)particles.push(new Particle());
-function loop(){ctx.clearRect(0,0,w,h);for(let p of particles){p.update();p.draw();}requestAnimationFrame(loop);}
-loop();
-</script>
-</body>
-</html>
+<!-- PARTICLES BACKGROUND -->
+<script

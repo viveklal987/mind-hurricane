@@ -123,13 +123,14 @@ h2:hover{transform:scale(1.04);text-shadow:0 0 18px rgba(0,255,200,.45)}
   .map-grid{grid-template-columns:1fr 1.3fr}
 }
 
-.addr{
-  text-align:left;line-height:1.65;opacity:.95
+/* Address formatting (fixed lines) */
+.addr{ text-align:left; line-height:1.65; }
+.addr .title{ font-weight:800; font-size:1.3rem; color:#00ffcc; margin-bottom:10px; }
+.addr .line{ display:block; margin:2px 0; }
+.addr strong{ font-weight:800; }
+@media (min-width:900px){
+  .addr{ max-width:440px; }
 }
-.addr .title{
-  font-weight:800;font-size:1.3rem;color:#00ffcc;margin-bottom:10px
-}
-.addr p{margin:0}
 
 .map-side{text-align:center}
 .map-embed{
@@ -234,17 +235,15 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
     <div class="reach-wrap">
       <div class="map-card reveal" id="mapCard">
         <div class="map-grid">
-          <!-- Left: Address -->
-          <div class="addr">
+          <!-- Left: Address with fixed lines -->
+          <address class="addr">
             <div class="title">Visit Our Lab</div>
-            <p>
-              <strong>Mind Hurricane</strong><br>
-              Technology Business Incubator Foundation<br>
-              Top Floor (East Wing), M. Visvesvaraya Block<br>
-              Indian Institute Of Technology, Ropar<br>
-              Rupnagar - 140001, Punjab, India
-            </p>
-          </div>
+            <span class="line"><strong>Mind Hurricane</strong></span>
+            <span class="line">Technology Business Incubator Foundation</span>
+            <span class="line">Top Floor (East Wing), M.&nbsp;Visvesvaraya Block</span>
+            <span class="line">Indian Institute of Technology, Ropar</span>
+            <span class="line">Rupnagar&nbsp;–&nbsp;140001,&nbsp;Punjab,&nbsp;India</span>
+          </address>
 
           <!-- Right: Map -->
           <div class="map-side">
@@ -259,7 +258,7 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
           </div>
         </div>
 
-        <!-- Full-width centered button (still inside same card) -->
+        <!-- Full-width centered button (inside same card) -->
         <div class="map-actions">
           <a class="link-btn" href="https://maps.app.goo.gl/NpYJXdFDzMSiHVS4A" target="_blank" rel="noopener">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">

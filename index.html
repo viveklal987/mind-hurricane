@@ -51,7 +51,13 @@ nav.shrink .nav-title{font-size:1.35rem;}
 /* Mind Hurricane text */
 .nav-title{
   font-size:1.6rem;font-weight:900;text-transform:uppercase;letter-spacing:2px;
-  background:linear-gradient(270deg,var(--neon-a),var(--neon-b),var(--neon-c),var(--neon-d),var(--neon-a));
+  background:linear-gradient(270deg,
+    var(--neon-a),
+    var(--neon-b),
+    var(--neon-c),
+    var(--neon-d),
+    var(--neon-a)
+  );
   background-size:600% 600%;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   animation:gradientSwipe 6s linear infinite,textPulse 4s ease-in-out infinite;
@@ -73,48 +79,20 @@ nav.shrink .nav-title{font-size:1.35rem;}
   50%{filter:brightness(1.5);}
 }
 
-/* ===== NAV LINKS ===== */
+/* ===== NAV LINKS (CLEAN WHITE, NO GLOW) ===== */
 .nav-links{
   display:flex;align-items:center;gap:22px;
 }
 .nav-links a{
-  position:relative;
-  display:inline-block;
   color:#fff;
+  text-decoration:none;
   font-weight:600;
   font-size:0.95rem;
-  text-decoration:none;
-  transition:transform .35s ease, color .35s ease, filter .35s ease;
+  transition:transform .3s ease, opacity .3s ease;
 }
-
-/* gradient swipe without blur */
-.nav-links a::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(90deg,var(--neon-a),var(--neon-c),var(--neon-d),var(--neon-b));
-  background-size:300% 300%;
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  opacity:0;
-  transition:opacity .35s ease;
-}
-
 .nav-links a:hover{
-  transform:scale(1.15);
-  color:#fff; /* keep text white as base */
-  filter:drop-shadow(0 0 8px rgba(0,255,255,.6));
-}
-
-.nav-links a:hover::before{
-  opacity:1;
-  animation:gradientSwipe 3s linear infinite;
-}
-
-/* disable old text-shadow blur entirely */
-.nav-links a,
-.nav-links a::before {
-  text-shadow:none;
+  transform:scale(1.1);
+  opacity:.8;
 }
 
 /* hamburger for mobile */

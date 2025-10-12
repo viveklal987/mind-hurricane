@@ -7,10 +7,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --neon-b:#00ff88; /* soft neon green */
-  --neon-bright:#00ff55; /* bright electric green */
-  --neon-c:#00ffee; /* cyan */
-  --neon-d:#c800ff; /* purple */
+  --neon-b:#00ff88;
+  --neon-bright:#00ff55;
+  --neon-c:#00ffee;
+  --neon-d:#c800ff;
   --line:rgba(0,255,204,.12);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -79,7 +79,7 @@ nav.shrink .nav-title{font-size:1.35rem;}
   50%{filter:brightness(1.4);}
 }
 
-/* ===== NAV LINKS (clean white hover) ===== */
+/* ===== NAV LINKS ===== */
 .nav-links{
   display:flex;align-items:center;gap:22px;
 }
@@ -127,7 +127,8 @@ nav.shrink .nav-title{font-size:1.35rem;}
 
 /* ===== HERO ===== */
 .hero{
-  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
   overflow:hidden;position:relative;background:#000;text-align:center;
 }
 #particles{position:absolute;inset:0;z-index:1;}
@@ -135,6 +136,30 @@ nav.shrink .nav-title{font-size:1.35rem;}
 .hero::after{
   content:"";position:absolute;left:0;bottom:0;width:100%;height:40%;
   background:linear-gradient(to bottom,rgba(0,0,0,0) 0%, #000 100%);z-index:1;
+}
+
+/* ===== IIT TEXT ===== */
+.iit-text{
+  font-size:4rem;
+  font-weight:900;
+  letter-spacing:4px;
+  margin-top:60px;
+  text-transform:uppercase;
+  background:linear-gradient(270deg,
+    var(--neon-bright),
+    var(--neon-c),
+    var(--neon-d),
+    var(--neon-bright)
+  );
+  background-size:600% 600%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:gradientSwipe 8s linear infinite, glowPulse 5s ease-in-out infinite;
+  text-shadow:0 0 30px rgba(0,255,150,.3);
+}
+@keyframes glowPulse{
+  0%,100%{filter:brightness(1);}
+  50%{filter:brightness(1.5);}
 }
 
 /* ===== FLOAT SECTIONS ===== */
@@ -199,6 +224,7 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 <!-- ===== HERO ===== -->
 <section id="hero" class="hero">
   <canvas id="particles"></canvas>
+  <div class="iit-text">IIT</div>
 </section>
 
 <!-- ===== ABOUT ===== -->

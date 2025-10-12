@@ -15,7 +15,7 @@ html,body{margin:0;padding:0;background:#000;color:#fff;font-family:'Poppins',sa
 section{position:relative;padding:96px 8%;text-align:center}
 p{margin:0}
 
-/* ===== animated gradient text ===== */
+/* gradient text */
 .gradient-text{
   background:linear-gradient(270deg,var(--neon-a),var(--neon-b),var(--neon-c));
   background-size:600% 600%;
@@ -28,69 +28,22 @@ p{margin:0}
   100%{background-position:0% 50%}
 }
 
-/* headings */
-h2{
-  font-size:2.4rem;font-weight:800;margin:0 0 16px;
-  transition:transform .35s ease,text-shadow .35s ease;
-}
-h2:hover{transform:scale(1.05);text-shadow:0 0 18px rgba(0,255,200,.5)}
-.sub{opacity:.9}
-
-/* buttons */
-.btn{
-  display:inline-block;margin-top:14px;padding:.9rem 2.2rem;border-radius:40px;
-  background:linear-gradient(90deg,var(--neon-a),var(--neon-b));
-  color:#000;font-weight:700;transition:transform .25s,box-shadow .25s;
-}
-.btn:hover{transform:translateY(-3px);box-shadow:0 0 25px rgba(0,255,200,.6)}
-
-/* grid + 3d context */
-.grid{display:grid;gap:28px}
-section,.grid,.mv{perspective:1000px}
-
-/* cards */
-.card{
-  background:var(--glass);
-  border-radius:16px;padding:24px;
-  box-shadow:0 0 22px rgba(0,255,204,.08);
-  transform-style:preserve-3d;
-  transition:transform .35s,box-shadow .35s,filter .35s;
-  animation:cardGlow 4s ease-in-out infinite alternate;
-}
-.card:hover{
-  transform:translateY(-10px) rotateX(10deg) rotateY(-8deg);
-  box-shadow:0 0 35px rgba(0,255,200,.3),0 0 25px rgba(0,255,200,.15);
-  filter:brightness(1.1);
-}
-@keyframes cardGlow{
-  0%{box-shadow:0 0 18px rgba(0,255,136,.15)}
-  50%{box-shadow:0 0 40px rgba(0,255,200,.3)}
-  100%{box-shadow:0 0 18px rgba(255,0,255,.15)}
-}
-
-/* ===== NAVBAR ===== */
+/* navbar layout */
 nav{
-  position:fixed;top:0;left:0;width:100%;height:72px;z-index:1000;
+  position:fixed;top:0;left:0;width:100%;height:80px;z-index:1000;
   display:flex;align-items:center;justify-content:space-between;
-  padding:8px 6%;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);
+  padding:0 6%;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);
   border-bottom:1px solid var(--line);
 }
-.nav-left{display:flex;align-items:center;gap:10px}
-.nav-center{position:absolute;left:50%;transform:translateX(-50%)}
-nav h1{font-size:1.5rem;font-weight:900;margin:0}
-nav ul{list-style:none;display:flex;gap:26px;margin:0;padding:0}
-nav a{color:#fff;text-decoration:none;font-weight:600}
-nav a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc}
-.spacer{height:72px}
-@media(max-width:860px){nav ul{display:none}}
+.nav-left,.nav-right{display:flex;align-items:center;gap:24px}
 
-/* navbar logo (small glowing circle) */
+/* logo top-left */
 .nav-logo{
-  width:52px;height:52px;border-radius:50%;
+  width:56px;height:56px;border-radius:50%;
   background:linear-gradient(270deg,var(--neon-a),var(--neon-b),var(--neon-c));
   background-size:400% 400%;
   animation:gradientShift 5s ease infinite, glow 4s ease-in-out infinite;
-  overflow:hidden;position:relative;cursor:pointer;
+  overflow:hidden;position:relative;cursor:pointer;flex-shrink:0;
 }
 .nav-logo::after{
   content:"";position:absolute;inset:-5px;background:inherit;border-radius:50%;filter:blur(12px);opacity:.7;z-index:-1;
@@ -98,27 +51,58 @@ nav a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc}
 .nav-logo img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
 .nav-logo:hover{transform:scale(1.1) rotate(6deg);}
 
+/* center title */
+.nav-center{
+  flex:1;text-align:center;
+}
+.nav-center h1{
+  font-size:2rem;
+  font-weight:900;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin:0;
+  background:linear-gradient(90deg,var(--neon-a),var(--neon-b),var(--neon-c));
+  background-size:300% 300%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:gradientShift 6s linear infinite,textPulse 4s ease-in-out infinite;
+  text-shadow:0 0 20px rgba(0,255,200,.25);
+}
+@keyframes textPulse{
+  0%,100%{filter:brightness(1)}
+  50%{filter:brightness(1.4)}
+}
+
+/* nav links on right */
+nav ul{list-style:none;display:flex;gap:26px;margin:0;padding:0}
+nav a{color:#fff;text-decoration:none;font-weight:600}
+nav a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc}
+.spacer{height:80px}
+@media(max-width:860px){nav ul{display:none}}
+
+@keyframes glow{
+  0%,100%{box-shadow:0 0 20px rgba(0,255,136,.4)}
+  50%{box-shadow:0 0 40px rgba(0,255,136,.8)}
+}
+
 /* hero */
 .hero{
-  min-height:calc(100vh - 72px);
+  min-height:calc(100vh - 80px);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   overflow:hidden;position:relative;background:#000;text-align:center;
 }
 .hero h1{
   font-size:3.5rem;font-weight:900;margin:0 0 12px;
   transition:transform .35s ease,text-shadow .35s ease;
-  display:inline-block;
 }
 .hero h1:hover{transform:scale(1.08);text-shadow:0 0 18px rgba(0,255,200,.45)}
 
-/* hero logo (kept same styling) */
 .logo-frame{
   width:200px;height:200px;margin:10px auto 18px;border-radius:50%;
   background:linear-gradient(270deg,var(--neon-a),var(--neon-b),var(--neon-c));
   background-size:400% 400%;
   animation:gradientShift 5s ease infinite, glow 4s ease-in-out infinite;
   transition:transform .6s,box-shadow .6s;position:relative;overflow:hidden;
-  filter:brightness(1.05);
 }
 .logo-frame::after{
   content:"";position:absolute;inset:-8px;background:inherit;border-radius:50%;filter:blur(20px);opacity:.7;z-index:-1;
@@ -127,15 +111,6 @@ nav a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc}
 .logo-frame:hover{transform:scale(1.15) rotate(10deg);box-shadow:0 0 50px rgba(0,255,200,.6)}
 
 .hero .lead{max-width:720px;margin:0 auto 18px;opacity:.9}
-
-/* particles + fade */
-#particles{position:absolute;inset:0;z-index:0}
-.hero *:not(canvas){position:relative;z-index:2}
-.hero::after{
-  content:"";position:absolute;left:0;bottom:0;width:100%;height:60%;
-  background:linear-gradient(to bottom,rgba(0,0,0,0) 0%, #000 100%);
-  z-index:1;
-}
 
 /* contact */
 .contact-box{max-width:640px;margin:18px auto 0}
@@ -156,11 +131,6 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 .reveal{opacity:0;transform:translateY(50px);transition:opacity .9s,transform .9s}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
-@keyframes glow{
-  0%,100%{box-shadow:0 0 20px rgba(0,255,136,.4)}
-  50%{box-shadow:0 0 40px rgba(0,255,136,.8)}
-}
-
 @media(max-width:720px){
   .hero h1{font-size:2.6rem}
   section{padding:80px 6%}
@@ -169,7 +139,7 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 </head>
 <body>
 
-<!-- ===== NAVBAR ===== -->
+<!-- NAVBAR -->
 <nav>
   <div class="nav-left">
     <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
@@ -177,17 +147,22 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
     </div>
   </div>
   <div class="nav-center">
-    <h1 class="gradient-text">Mind Hurricane</h1>
+    <h1>Mind Hurricane</h1>
   </div>
-  <ul>
-    <li><a href="#hero">Home</a></li><li><a href="#about">About</a></li>
-    <li><a href="#products">Products</a></li><li><a href="#industries">Industries</a></li>
-    <li><a href="#team">Team</a></li><li><a href="#contact">Contact</a></li>
-  </ul>
+  <div class="nav-right">
+    <ul>
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#industries">Industries</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
 </nav>
 <div class="spacer"></div>
 
-<!-- ===== HERO ===== -->
+<!-- HERO -->
 <section id="hero" class="hero">
   <canvas id="particles"></canvas>
   <h1 class="gradient-text reveal">Mind Hurricane</h1>
@@ -198,13 +173,13 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
   <a href="#about" class="btn reveal">Explore</a>
 </section>
 
-<!-- ===== ABOUT ===== -->
+<!-- ABOUT -->
 <section id="about">
   <h2 class="gradient-text reveal">About Us</h2>
   <p class="sub reveal"><strong>Mind Hurricane</strong> is an IIT-incubated robotics and AI startup developing next-generation autonomous systems for defence, policing, and agri-tech sectors.</p>
 </section>
 
-<!-- ===== CONTACT ===== -->
+<!-- CONTACT -->
 <section id="contact">
   <h2 class="gradient-text reveal">Contact Us</h2>
   <p class="sub reveal">We’re open to collaborations, pilots, and research partnerships.</p>
@@ -221,9 +196,9 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 
 <footer>© 2025 Mind Hurricane • Incubated at IIT Ropar • Made with ⚡ in India</footer>
 
-<!-- ===== SCRIPTS ===== -->
+<!-- SCRIPTS -->
 <script>
-/* particles */
+/* particles background */
 const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
 let w,h,particles=[];
 function resize(){w=canvas.width=innerWidth;h=canvas.height=document.getElementById('hero').offsetHeight;}
@@ -240,7 +215,7 @@ class Particle{
 for(let i=0;i<120;i++)particles.push(new Particle());
 (function loop(){ctx.clearRect(0,0,w,h);for(const p of particles){p.step();p.draw();}requestAnimationFrame(loop);})();
 
-/* reveal */
+/* scroll reveal */
 const io=new IntersectionObserver((entries)=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}})
 },{threshold:.15});

@@ -68,23 +68,39 @@ section,.grid,.mv{perspective:1000px}
   100%{box-shadow:0 0 18px rgba(255,0,255,.15)}
 }
 
-/* navbar */
+/* ===== NAVBAR ===== */
 nav{
-  position:fixed;top:0;left:0;width:100%;height:64px;z-index:1000;
+  position:fixed;top:0;left:0;width:100%;height:72px;z-index:1000;
   display:flex;align-items:center;justify-content:space-between;
-  padding:12px 8%;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);
+  padding:8px 6%;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);
   border-bottom:1px solid var(--line);
 }
-nav h1{font-size:1.4rem;font-weight:900}
+.nav-left{display:flex;align-items:center;gap:10px}
+.nav-center{position:absolute;left:50%;transform:translateX(-50%)}
+nav h1{font-size:1.5rem;font-weight:900;margin:0}
 nav ul{list-style:none;display:flex;gap:26px;margin:0;padding:0}
 nav a{color:#fff;text-decoration:none;font-weight:600}
 nav a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc}
-.spacer{height:64px}
+.spacer{height:72px}
 @media(max-width:860px){nav ul{display:none}}
+
+/* navbar logo (small glowing circle) */
+.nav-logo{
+  width:52px;height:52px;border-radius:50%;
+  background:linear-gradient(270deg,var(--neon-a),var(--neon-b),var(--neon-c));
+  background-size:400% 400%;
+  animation:gradientShift 5s ease infinite, glow 4s ease-in-out infinite;
+  overflow:hidden;position:relative;cursor:pointer;
+}
+.nav-logo::after{
+  content:"";position:absolute;inset:-5px;background:inherit;border-radius:50%;filter:blur(12px);opacity:.7;z-index:-1;
+}
+.nav-logo img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.nav-logo:hover{transform:scale(1.1) rotate(6deg);}
 
 /* hero */
 .hero{
-  min-height:calc(100vh - 64px);
+  min-height:calc(100vh - 72px);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   overflow:hidden;position:relative;background:#000;text-align:center;
 }
@@ -95,30 +111,20 @@ nav a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc}
 }
 .hero h1:hover{transform:scale(1.08);text-shadow:0 0 18px rgba(0,255,200,.45)}
 
-/* ===== logo frame (soft glow + no visible border + cursor tilt) ===== */
+/* hero logo (kept same styling) */
 .logo-frame{
-  width:200px;height:200px;margin:10px auto 18px;
-  border-radius:50%;
+  width:200px;height:200px;margin:10px auto 18px;border-radius:50%;
   background:linear-gradient(270deg,var(--neon-a),var(--neon-b),var(--neon-c));
   background-size:400% 400%;
   animation:gradientShift 5s ease infinite, glow 4s ease-in-out infinite;
-  transition:transform .6s,box-shadow .6s;
-  position:relative;
-  overflow:hidden;
+  transition:transform .6s,box-shadow .6s;position:relative;overflow:hidden;
   filter:brightness(1.05);
 }
 .logo-frame::after{
-  content:"";position:absolute;inset:-8px;
-  background:inherit;border-radius:50%;filter:blur(20px);
-  opacity:.7;z-index:-1;
+  content:"";position:absolute;inset:-8px;background:inherit;border-radius:50%;filter:blur(20px);opacity:.7;z-index:-1;
 }
 .logo-frame img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .logo-frame:hover{transform:scale(1.15) rotate(10deg);box-shadow:0 0 50px rgba(0,255,200,.6)}
-
-@keyframes glow{
-  0%,100%{box-shadow:0 0 20px rgba(0,255,136,.4)}
-  50%{box-shadow:0 0 40px rgba(0,255,136,.8)}
-}
 
 .hero .lead{max-width:720px;margin:0 auto 18px;opacity:.9}
 
@@ -130,24 +136,6 @@ nav a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc}
   background:linear-gradient(to bottom,rgba(0,0,0,0) 0%, #000 100%);
   z-index:1;
 }
-
-/* sections layout */
-.features{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:28px}
-.mv{display:flex;flex-wrap:wrap;gap:28px;justify-content:center;margin-top:28px}
-.mv .card{flex:1 1 320px;max-width:520px}
-.industries{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:20px}
-.tech-row{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:24px}
-.tech{border:1px solid var(--line);background:#0b1223;border-radius:40px;padding:12px 18px;transition:transform .3s}
-.tech span{color:#00ffcc;font-weight:600}
-.tech:hover{transform:scale(1.1)}
-.products{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:22px}
-.product img{border-radius:12px;margin-bottom:12px;width:100%;height:180px;object-fit:cover}
-.team{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:22px}
-.member img{width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto 10px}
-.partners{display:flex;flex-wrap:wrap;gap:40px;justify-content:center;align-items:center;margin-top:18px;opacity:.85}
-.partners img{height:60px;filter:brightness(0) invert(1);opacity:.82;transition:.3s}
-.partners img:hover{opacity:1;transform:scale(1.05)}
-#cta{background:linear-gradient(135deg,#001f33 0%,#000 100%)}
 
 /* contact */
 .contact-box{max-width:640px;margin:18px auto 0}
@@ -162,33 +150,35 @@ input,textarea{
 }
 #contact button:hover{transform:translateY(-2px)}
 
-.map-box{
-  width:700px;height:400px;margin:30px auto 0;position:relative;
-  overflow:hidden;border-radius:16px;border:1px solid rgba(0,255,204,.15);
-  box-shadow:0 0 40px rgba(0,255,200,.1);
-}
-.map-box iframe{
-  width:100%;height:100%;border:0;border-radius:16px;
-  filter:brightness(.85) contrast(1.2);transition:filter .6s
-}
-.map-box iframe:hover{filter:brightness(1) contrast(1.1) saturate(1.2)}
-
 footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacity:.85}
 
-/* reveal on scroll */
+/* reveal */
 .reveal{opacity:0;transform:translateY(50px);transition:opacity .9s,transform .9s}
 .reveal.visible{opacity:1;transform:translateY(0)}
+
+@keyframes glow{
+  0%,100%{box-shadow:0 0 20px rgba(0,255,136,.4)}
+  50%{box-shadow:0 0 40px rgba(0,255,136,.8)}
+}
 
 @media(max-width:720px){
   .hero h1{font-size:2.6rem}
   section{padding:80px 6%}
-  .map-box{width:90%;height:320px}
 }
 </style>
 </head>
 <body>
+
+<!-- ===== NAVBAR ===== -->
 <nav>
-  <h1 class="gradient-text">Mind Hurricane</h1>
+  <div class="nav-left">
+    <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+      <img src="https://i.ibb.co/bRK52FS6/mind-hurricane-logo.png" alt="Mind Hurricane Logo">
+    </div>
+  </div>
+  <div class="nav-center">
+    <h1 class="gradient-text">Mind Hurricane</h1>
+  </div>
   <ul>
     <li><a href="#hero">Home</a></li><li><a href="#about">About</a></li>
     <li><a href="#products">Products</a></li><li><a href="#industries">Industries</a></li>
@@ -197,7 +187,7 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 </nav>
 <div class="spacer"></div>
 
-<!-- HERO -->
+<!-- ===== HERO ===== -->
 <section id="hero" class="hero">
   <canvas id="particles"></canvas>
   <h1 class="gradient-text reveal">Mind Hurricane</h1>
@@ -208,13 +198,13 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
   <a href="#about" class="btn reveal">Explore</a>
 </section>
 
-<!-- ABOUT -->
+<!-- ===== ABOUT ===== -->
 <section id="about">
   <h2 class="gradient-text reveal">About Us</h2>
   <p class="sub reveal"><strong>Mind Hurricane</strong> is an IIT-incubated robotics and AI startup developing next-generation autonomous systems for defence, policing, and agri-tech sectors.</p>
 </section>
 
-<!-- CONTACT -->
+<!-- ===== CONTACT ===== -->
 <section id="contact">
   <h2 class="gradient-text reveal">Contact Us</h2>
   <p class="sub reveal">We’re open to collaborations, pilots, and research partnerships.</p>
@@ -231,9 +221,9 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 
 <footer>© 2025 Mind Hurricane • Incubated at IIT Ropar • Made with ⚡ in India</footer>
 
-<!-- SCRIPTS -->
+<!-- ===== SCRIPTS ===== -->
 <script>
-/* particles background */
+/* particles */
 const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
 let w,h,particles=[];
 function resize(){w=canvas.width=innerWidth;h=canvas.height=document.getElementById('hero').offsetHeight;}
@@ -250,13 +240,13 @@ class Particle{
 for(let i=0;i<120;i++)particles.push(new Particle());
 (function loop(){ctx.clearRect(0,0,w,h);for(const p of particles){p.step();p.draw();}requestAnimationFrame(loop);})();
 
-/* scroll reveal */
+/* reveal */
 const io=new IntersectionObserver((entries)=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}})
 },{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-/* 3D tilt on logo (cursor follow) */
+/* 3D tilt on hero logo */
 const logo=document.getElementById('logo');
 logo.addEventListener('mousemove',e=>{
   const r=logo.getBoundingClientRect();
@@ -266,18 +256,6 @@ logo.addEventListener('mousemove',e=>{
   logo.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) scale(1.15)`;
 });
 logo.addEventListener('mouseleave',()=>logo.style.transform='rotateX(0) rotateY(0)');
-
-/* card reactive tilt */
-document.querySelectorAll('.card').forEach(card=>{
-  card.addEventListener('mousemove',e=>{
-    const r=card.getBoundingClientRect();
-    const x=e.clientX-r.left, y=e.clientY-r.top;
-    const cx=r.width/2, cy=r.height/2;
-    const rx=((y-cy)/cy)*10, ry=((x-cx)/cx)*-10;
-    card.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px)`;
-  });
-  card.addEventListener('mouseleave',()=>card.style.transform='rotateX(0) rotateY(0)');
-});
 </script>
 </body>
 </html>

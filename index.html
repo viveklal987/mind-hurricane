@@ -16,7 +16,7 @@ html,body{
   font-family:'Poppins',sans-serif;
   scroll-behavior:smooth;overflow-x:hidden;
 }
-section{position:relative;padding:96px 8%;text-align:center}
+section{position:relative;padding:96px 8%;text-align:center;z-index:2;}
 p{margin:0}
 
 /* ===== animated gradient text ===== */
@@ -108,21 +108,34 @@ nav{
 
 /* ===== HERO ===== */
 .hero{
-  min-height:calc(100vh - 70px);
+  min-height:100vh;
   display:flex;align-items:center;justify-content:center;
-  overflow:hidden;position:relative;background:#000;text-align:center;
+  overflow:hidden;position:relative;
+  background:#000;text-align:center;
 }
-
-/* particles */
-#particles{position:absolute;inset:0;z-index:0}
-.hero *:not(canvas){position:relative;z-index:2}
+#particles{
+  position:absolute;
+  inset:0;
+  z-index:1;
+}
 .hero::after{
-  content:"";position:absolute;left:0;bottom:0;width:100%;height:60%;
+  content:"";position:absolute;left:0;bottom:0;width:100%;height:40%;
   background:linear-gradient(to bottom,rgba(0,0,0,0) 0%, #000 100%);
   z-index:1;
 }
+.hero *:not(canvas){position:relative;z-index:2;}
 
-/* ABOUT + CONTACT */
+/* ===== FLOAT SECTIONS (overlapping hero) ===== */
+#about, #contact{
+  margin-top:-150px; /* moves them upward into hero background */
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(4px);
+  border-radius:20px;
+  padding:80px 8%;
+  box-shadow:0 0 40px rgba(0,255,200,.08);
+}
+
+/* ===== HEADINGS ===== */
 h2{
   font-size:2.2rem;font-weight:800;margin:0 0 16px;
   transition:transform .35s ease,text-shadow .35s ease;
@@ -130,6 +143,7 @@ h2{
 h2:hover{transform:scale(1.05);text-shadow:0 0 18px rgba(0,255,200,.5)}
 .sub{opacity:.9}
 
+/* ===== CONTACT FORM ===== */
 .contact-box{max-width:640px;margin:18px auto 0}
 input,textarea{
   width:100%;padding:12px 14px;border:none;border-radius:10px;
@@ -149,6 +163,7 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 
 @media(max-width:720px){
   section{padding:80px 6%}
+  #about,#contact{margin-top:-100px;padding:60px 6%}
 }
 </style>
 </head>
@@ -179,7 +194,7 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 
 <div class="spacer"></div>
 
-<!-- ===== HERO ===== -->
+<!-- ===== HERO (Particles Background) ===== -->
 <section id="hero" class="hero">
   <canvas id="particles"></canvas>
 </section>

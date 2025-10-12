@@ -36,18 +36,18 @@ p{margin:0}
 /* ===== NAVBAR ===== */
 nav{
   position:fixed;top:0;left:0;width:100%;height:100px;z-index:1000;
-  display:flex;align-items:center;
+  display:flex;align-items:center;justify-content:space-between;
   padding:0 6%;
   background:rgba(0,0,0,.8);
   backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
 }
 
-/* left: logo + title + links */
-.nav-left{
+/* brand section: logo + title */
+.brand{
   display:flex;
   align-items:center;
-  gap:35px;
+  gap:25px;
 }
 .nav-logo{
   width:58px;height:58px;border-radius:50%;
@@ -67,7 +67,7 @@ nav{
 }
 .nav-logo:hover{transform:scale(1.1) rotate(6deg);}
 
-/* Mind Hurricane beside logo */
+/* Mind Hurricane text */
 .nav-title{
   font-size:2rem;
   font-weight:900;
@@ -85,23 +85,26 @@ nav{
   50%{filter:brightness(1.6)}
 }
 
-/* links */
+/* right-aligned nav links */
 nav ul{
   list-style:none;
   display:flex;
-  gap:22px;
+  gap:28px;
   margin:0;
   padding:0;
 }
 nav a{
-  color:#fff;text-decoration:none;font-weight:600;font-size:0.95rem;
+  color:#fff;text-decoration:none;font-weight:600;font-size:1rem;
 }
 nav a:hover{
   color:#00ffcc;text-shadow:0 0 8px #00ffcc;
 }
 
 .spacer{height:100px}
-@media(max-width:860px){nav ul{display:none}}
+@media(max-width:860px){
+  nav ul{display:none}
+  .nav-title{font-size:1.5rem}
+}
 
 @keyframes glow{
   0%,100%{box-shadow:0 0 20px rgba(0,255,136,.4)}
@@ -150,7 +153,6 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 @media(max-width:720px){
-  .nav-title{font-size:1.5rem}
   section{padding:80px 6%}
 }
 </style>
@@ -159,20 +161,21 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 
 <!-- ===== NAVBAR ===== -->
 <nav>
-  <div class="nav-left">
+  <div class="brand">
     <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
       <img src="https://i.ibb.co/bRK52FS6/mind-hurricane-logo.png" alt="Mind Hurricane Logo">
     </div>
     <div class="nav-title">Mind Hurricane</div>
-    <ul>
-      <li><a href="#hero">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#products">Products</a></li>
-      <li><a href="#industries">Industries</a></li>
-      <li><a href="#team">Team</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
   </div>
+
+  <ul>
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </nav>
 
 <div class="spacer"></div>

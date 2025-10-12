@@ -106,41 +106,32 @@ h2{font-size:2.2rem;font-weight:800;margin:0 0 16px;transition:.35s}
 h2:hover{transform:scale(1.04);text-shadow:0 0 18px rgba(0,255,200,.45)}
 .sub{opacity:.92}
 
-/* ===== REACH US (single card with 2-col grid) ===== */
-/* Wider reach section only */
+/* ===== REACH US (wider) ===== */
 #reach{ width:min(100%,1400px); }
-@media (min-width:1600px){
-  #reach{ width:min(100%,1500px); }
-}
+@media (min-width:1600px){ #reach{ width:min(100%,1500px); } }
 
 .reach-wrap{max-width:1400px;margin:0 auto}
-@media (min-width:1600px){
-  .reach-wrap{max-width:1500px;}
-}
+@media (min-width:1600px){ .reach-wrap{max-width:1500px;} }
 
-.map-card{
+/* ===== SHARED PANEL CARD (used by Reach + Contact) ===== */
+.panel-card{
   position:relative;border-radius:18px;padding:32px;
   background:linear-gradient(180deg,rgba(0,255,170,.10),rgba(0,0,0,.25));
   border:1px solid rgba(0,255,200,.18);box-shadow:0 0 40px rgba(0,255,200,.10);
   overflow:hidden;transform-style:preserve-3d;transition:transform .35s,box-shadow .35s,filter .35s
 }
-.map-card:hover{transform:translateY(-6px) rotateX(6deg) rotateY(-4deg);box-shadow:0 20px 50px rgba(0,255,200,.18);filter:brightness(1.06)}
+.panel-card:hover{transform:translateY(-6px) rotateX(6deg) rotateY(-4deg);box-shadow:0 20px 50px rgba(0,255,200,.18);filter:brightness(1.06)}
 
-.map-grid{
-  display:grid;grid-template-columns:1fr;gap:22px;align-items:start
-}
-@media (min-width:900px){
-  .map-grid{grid-template-columns:1.05fr 1.6fr;gap:28px}
-}
+/* Reach – grid inside the card */
+.map-grid{display:grid;grid-template-columns:1fr;gap:22px;align-items:start}
+@media (min-width:900px){ .map-grid{grid-template-columns:1.05fr 1.6fr;gap:28px} }
 
 /* Address formatting (fixed lines) */
 .addr{ text-align:left; line-height:1.65; }
 .addr .title{ font-weight:800; font-size:1.3rem; color:#00ffcc; margin-bottom:10px; }
 .addr .line{ display:block; margin:2px 0; }
 .addr strong{ font-weight:800; }
-@media (min-width:900px){
-  .addr{ max-width:520px; } /* wider since the section is wider */
-}
+@media (min-width:900px){ .addr{ max-width:520px; } }
 
 .map-side{text-align:center}
 .map-embed{
@@ -151,9 +142,7 @@ h2:hover{transform:scale(1.04);text-shadow:0 0 18px rgba(0,255,200,.45)}
 }
 .map-embed:hover{filter:brightness(1) contrast(1.05) saturate(1.1);transform:translateZ(0.01px)}
 
-.map-actions{
-  display:flex;justify-content:center;gap:12px;margin-top:18px
-}
+.map-actions{display:flex;justify-content:center;gap:12px;margin-top:18px}
 .link-btn{
   display:inline-flex;align-items:center;gap:10px;
   padding:.85rem 1.2rem;border-radius:40px;font-weight:700;text-decoration:none;color:#000;
@@ -162,13 +151,16 @@ h2:hover{transform:scale(1.04);text-shadow:0 0 18px rgba(0,255,200,.45)}
 }
 .link-btn:hover{transform:translateY(-2px);box-shadow:0 0 22px rgba(0,255,200,.45)}
 
-/* ===== CONTACT (stretched like Reach) ===== */
+/* ===== CONTACT (stretched AND in a card) ===== */
 #contact{ width:min(100%,1400px); }
-@media (min-width:1600px){
-  #contact{ width:min(100%,1500px); }
-}
-/* make the form a bit wider inside the wider section */
-.contact-box{max-width:900px;margin:18px auto 0}
+@media (min-width:1600px){ #contact{ width:min(100%,1500px); } }
+
+.contact-wrap{max-width:1400px;margin:0 auto}
+@media (min-width:1600px){ .contact-wrap{max-width:1500px;} }
+
+.contact-card .intro{opacity:.92;margin-bottom:18px}
+.contact-content{max-width:920px;margin:0 auto}
+.contact-box{max-width:none;margin:0} /* form fills the contact-content width */
 
 /* form controls */
 input,textarea{
@@ -180,6 +172,12 @@ button{
   border:none;color:#000;padding:.9rem 2rem;border-radius:40px;font-weight:700;cursor:pointer;transition:.2s
 }
 button:hover{transform:translateY(-2px)}
+
+/* Utility: screen-reader only (for labels used above) */
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0
+}
+
 footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacity:.85}
 
 /* reveal */
@@ -231,18 +229,25 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
     <p class="sub reveal"><strong>Mind Hurricane</strong> is an IIT-incubated robotics and AI startup developing next-generation autonomous systems for defence, policing, and agri-tech sectors.</p>
   </section>
 
+  <!-- ===== CONTACT (IN A CARD) ===== -->
   <section id="contact" aria-labelledby="h-contact">
-    <h2 id="h-contact" class="reveal">Contact Us</h2>
-    <p class="sub reveal">We’re open to collaborations, pilots, and research partnerships.</p>
-    <div class="card contact-box reveal">
-      <form onsubmit="event.preventDefault();window.open('https://mail.google.com/mail/?view=cm&fs=1&to=mindhurricane.tech@gmail.com','_blank')">
-        <label><span class="sr-only">Your Name</span><input type="text" placeholder="Your Name" required></label>
-        <label><span class="sr-only">Your Email</span><input type="email" placeholder="Your Email" required></label>
-        <label><span class="sr-only">Your Message</span><textarea rows="5" placeholder="Your Message" required></textarea></label>
-        <button type="submit">Submit</button>
-      </form>
+    <div class="contact-wrap">
+      <div class="panel-card contact-card reveal">
+        <h2 id="h-contact">Contact Us</h2>
+        <p class="intro">We’re open to collaborations, pilots, and research partnerships.</p>
+
+        <div class="contact-content">
+          <form class="contact-box" onsubmit="event.preventDefault();window.open('https://mail.google.com/mail/?view=cm&fs=1&to=mindhurricane.tech@gmail.com','_blank')">
+            <label><span class="sr-only">Your Name</span><input type="text" placeholder="Your Name" required></label>
+            <label><span class="sr-only">Your Email</span><input type="email" placeholder="Your Email" required></label>
+            <label><span class="sr-only">Your Message</span><textarea rows="5" placeholder="Your Message" required></textarea></label>
+            <button type="submit">Submit</button>
+          </form>
+
+          <p class="sub" style="margin-top:14px">📧 <strong>Email:</strong> <a href="mailto:mindhurricane.tech@gmail.com">mindhurricane.tech@gmail.com</a></p>
+        </div>
+      </div>
     </div>
-    <p class="sub reveal">📧 <strong>Email:</strong> <a href="mailto:mindhurricane.tech@gmail.com">mindhurricane.tech@gmail.com</a></p>
   </section>
 
   <!-- ===== REACH US (SINGLE, WIDER CARD) ===== -->
@@ -250,7 +255,7 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
     <h2 id="h-reach" class="reveal">Reach Us</h2>
 
     <div class="reach-wrap">
-      <div class="map-card reveal" id="mapCard">
+      <div class="panel-card map-card reveal" id="mapCard">
         <div class="map-grid">
           <!-- Left: Address with fixed lines -->
           <address class="addr">

@@ -125,52 +125,25 @@ nav.shrink .nav-title{font-size:1.35rem;}
 
 .spacer{height:70px;}
 
-/* ===== HERO ===== */
-.hero{
-  min-height:100vh;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  overflow:hidden;position:relative;background:#000;text-align:center;
-}
-#particles{position:absolute;inset:0;z-index:1;}
-.hero *:not(canvas){position:relative;z-index:2;}
-.hero::after{
-  content:"";position:absolute;left:0;bottom:0;width:100%;height:40%;
-  background:linear-gradient(to bottom,rgba(0,0,0,0) 0%, #000 100%);z-index:1;
+/* ===== PARTICLE BACKGROUND (STATIC) ===== */
+#particles{
+  position:fixed;inset:0;
+  z-index:-1;
+  background:#000;
 }
 
-/* ===== IIT TEXT ===== */
-.iit-text{
-  font-size:5rem;
-  font-weight:900;
-  letter-spacing:6px;
-  margin-top:100px;
-  text-transform:uppercase;
-  background:linear-gradient(270deg,
-    #00ff55,
-    #00ffee,
-    #c800ff,
-    #00ff55
-  );
-  background-size:600% 600%;
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation:gradientSwipe 8s linear infinite, glowPulse 5s ease-in-out infinite;
-  text-shadow:
-    0 0 25px rgba(0,255,150,.8),
-    0 0 55px rgba(0,255,255,.6),
-    0 0 85px rgba(200,0,255,.5);
-  filter:brightness(1.4) contrast(1.2);
+/* ===== MAIN SECTIONS ===== */
+section{
+  position:relative;
+  padding:120px 8%;
+  text-align:center;
 }
-@keyframes glowPulse{
-  0%,100%{filter:brightness(1.2);}
-  50%{filter:brightness(1.7);}
-}
-
-/* ===== FLOAT SECTIONS ===== */
 #about,#contact{
-  margin-top:-120px;background:rgba(0,0,0,0.6);
-  backdrop-filter:blur(4px);border-radius:20px;
-  padding:80px 8%;box-shadow:0 0 40px rgba(0,255,200,.08);
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(4px);
+  border-radius:20px;
+  margin:60px auto;
+  box-shadow:0 0 40px rgba(0,255,200,.08);
 }
 
 /* ===== HEADINGS ===== */
@@ -181,7 +154,7 @@ h2{
 h2:hover{transform:scale(1.05);text-shadow:0 0 18px rgba(0,255,200,.5);}
 .sub{opacity:.9;}
 
-/* contact form */
+/* ===== CONTACT FORM ===== */
 .contact-box{max-width:640px;margin:18px auto 0;}
 input,textarea{
   width:100%;padding:12px 14px;border:none;border-radius:10px;
@@ -201,6 +174,9 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 </head>
 <body>
 
+<!-- ===== PARTICLE BACKGROUND ===== -->
+<canvas id="particles"></canvas>
+
 <!-- ===== NAVBAR ===== -->
 <nav id="navbar">
   <div class="brand">
@@ -211,7 +187,6 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
   </div>
 
   <div class="nav-links" id="nav-links">
-    <a href="#hero">Home</a>
     <a href="#about">About</a>
     <a href="#products">Products</a>
     <a href="#industries">Industries</a>
@@ -224,12 +199,6 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
   </div>
 </nav>
 <div class="spacer"></div>
-
-<!-- ===== HERO ===== -->
-<section id="hero" class="hero">
-  <canvas id="particles"></canvas>
-  <div class="iit-text">IIT</div>
-</section>
 
 <!-- ===== ABOUT ===== -->
 <section id="about">
@@ -256,25 +225,45 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 
 <!-- ===== SCRIPTS ===== -->
 <script>
-/* particles background */
+/* particles background (fixed to screen) */
 const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
 let w,h,particles=[];
-function resize(){w=canvas.width=innerWidth;h=canvas.height=document.getElementById('hero').offsetHeight;}
+function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;}
 addEventListener('resize',resize,{passive:true});resize();
+
 class Particle{
   constructor(){this.reset(true);}
   reset(all=false){
-    this.x=Math.random()*w;this.y=all?Math.random()*h:Math.random()*h*.6;
+    this.x=Math.random()*w;this.y=all?Math.random()*h:Math.random()*h;
     this.vx=(Math.random()-.5)*.5;this.vy=(Math.random()-.5)*.5;this.size=Math.random()*2+.6;
   }
-  step(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>w||this.y<0||this.y>h)this.reset();}
-  draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,2*Math.PI);ctx.fillStyle='rgba(0,255,204,.5)';ctx.fill();}
+  step(){
+    this.x+=this.vx;this.y+=this.vy;
+    if(this.x<0||this.x>w||this.y<0||this.y>h)this.reset();
+  }
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,2*Math.PI);
+    ctx.fillStyle='rgba(0,255,204,.4)';
+    ctx.fill();
+  }
 }
-for(let i=0;i<120;i++)particles.push(new Particle());
-(function loop(){ctx.clearRect(0,0,w,h);for(const p of particles){p.step();p.draw();}requestAnimationFrame(loop);})();
+for(let i=0;i<150;i++)particles.push(new Particle());
+(function loop(){
+  ctx.clearRect(0,0,w,h);
+  for(const p of particles){p.step();p.draw();}
+  requestAnimationFrame(loop);
+})();
 
 /* scroll reveal */
-const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}})},{threshold:.15});
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 /* navbar shrink on scroll */

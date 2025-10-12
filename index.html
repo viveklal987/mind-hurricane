@@ -19,13 +19,13 @@ html,body{
   scroll-behavior:smooth;overflow-x:hidden
 }
 
-/* ===== PARTICLE CANVAS (fixed background) ===== */
+/* ===== FIXED PARTICLE BACKGROUND ===== */
 #particles{
-  position:fixed;inset:0;z-index:0;           /* sits behind everything */
-  pointer-events:none;background:#000
+  position:fixed;inset:0;z-index:0;
+  pointer-events:none;background:#000;
 }
 
-/* wrap all site content above the canvas */
+/* put all site content above the canvas */
 #app{position:relative;z-index:1}
 
 /* ===== NAVBAR ===== */
@@ -62,7 +62,6 @@ nav.shrink .nav-title{font-size:1.35rem}
 .hamburger.active span:nth-child(1){transform:translateY(8px) rotate(45deg)}
 .hamburger.active span:nth-child(2){opacity:0}
 .hamburger.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
-
 @media(max-width:860px){
   .hamburger{display:flex}
   .nav-links{
@@ -73,23 +72,20 @@ nav.shrink .nav-title{font-size:1.35rem}
   .nav-links.show{right:0}
   .nav-links a{padding:10px 0;font-size:1rem}
 }
-
 .spacer{height:70px}
 
-/* ===== SECTIONS (translucent so particles show) ===== */
+/* ===== SECTIONS — translucent so particles show ===== */
 section{
   position:relative;padding:120px 8%;text-align:center;
-  background:rgba(0,0,0,.14);backdrop-filter:blur(3px);
-  border-radius:20px;margin:60px auto;width:min(100%,1000px);
-  box-shadow:0 0 40px rgba(0,255,200,.05)
+  background:rgba(0,0,0,.10); /* lighter than before */
+  backdrop-filter:blur(2px);
+  border-radius:20px;margin:56px auto;width:min(100%,1050px);
+  box-shadow:0 0 34px rgba(0,255,200,.05)
 }
-
-/* headings */
 h2{font-size:2.2rem;font-weight:800;margin:0 0 16px;transition:.35s}
 h2:hover{transform:scale(1.04);text-shadow:0 0 18px rgba(0,255,200,.45)}
 .sub{opacity:.92}
 
-/* contact form */
 .contact-box{max-width:640px;margin:18px auto 0}
 input,textarea{
   width:100%;padding:12px 14px;border:none;border-radius:10px;background:#111a2f;color:#fff;
@@ -100,20 +96,18 @@ button{
   border:none;color:#000;padding:.9rem 2rem;border-radius:40px;font-weight:700;cursor:pointer;transition:.2s
 }
 button:hover{transform:translateY(-2px)}
-
 footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacity:.85}
 
-/* simple reveal */
 .reveal{opacity:0;transform:translateY(40px);transition:opacity .9s,transform .9s}
 .reveal.visible{opacity:1;transform:translateY(0)}
 </style>
 </head>
 <body>
 
-<!-- FIXED PARTICLE BACKGROUND -->
+<!-- FIXED BACKGROUND -->
 <canvas id="particles"></canvas>
 
-<!-- EVERYTHING ELSE GOES ABOVE -->
+<!-- CONTENT ABOVE -->
 <div id="app">
   <nav id="navbar">
     <div class="brand">
@@ -160,7 +154,7 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 
 <!-- ===== SCRIPTS ===== -->
 <script>
-/* PARTICLES: fixed, always behind content */
+/* PARTICLES: brighter, twinkling, always visible */
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
 
@@ -171,35 +165,65 @@ function sizeCanvas(){
 window.addEventListener('resize', sizeCanvas, {passive:true});
 sizeCanvas();
 
-const particles = Array.from({length: 180}, () => ({
+const N = 220; // number of particles
+const particles = Array.from({length: N}, () => ({
   x: Math.random()*canvas.width,
   y: Math.random()*canvas.height,
-  vx: (Math.random()-0.5)*0.12,
-  vy: (Math.random()-0.5)*0.12,
-  r: 0.7 + Math.random()*1.6,
-  a: 0.35 + Math.random()*0.5
+  vx: (Math.random()-0.5)*0.10,
+  vy: (Math.random()-0.5)*0.10,
+  r: 1.0 + Math.random()*2.0,       // bigger
+  a: 0.55 + Math.random()*0.4,      // brighter
+  tw: Math.random()*Math.PI*2        // twinkle phase
 }));
 
-(function loop(){
+function draw(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  // subtle connections (short distances)
+  ctx.lineWidth = 0.6;
+  for(let i=0;i<N;i++){
+    for(let j=i+1;j<i+12 && j<N;j++){ // limit checks
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const d2 = dx*dx + dy*dy;
+      if(d2 < 120*120){
+        const a = 0.08 * (1 - Math.sqrt(d2)/120);
+        ctx.strokeStyle = `rgba(0,255,210,${a})`;
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+
   for(const p of particles){
+    // move
     p.x += p.vx; p.y += p.vy;
     if(p.x<0) p.x += canvas.width;
     if(p.x>canvas.width) p.x -= canvas.width;
     if(p.y<0) p.y += canvas.height;
     if(p.y>canvas.height) p.y -= canvas.height;
 
+    // twinkle
+    p.tw += 0.02;
+    const twinkle = 0.5 + 0.5*Math.sin(p.tw);
+    const alpha = Math.min(1, p.a * (0.7 + 0.3*twinkle));
+
+    // glow dot
     ctx.beginPath();
     ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fillStyle = `rgba(0,255,204,${p.a})`;
-    ctx.shadowColor = 'rgba(0,255,200,.7)';
-    ctx.shadowBlur = 10;
+    ctx.fillStyle = `rgba(0,255,204,${alpha})`;
+    ctx.shadowColor = 'rgba(0,255,210,.85)';
+    ctx.shadowBlur = 14;
     ctx.fill();
   }
-  requestAnimationFrame(loop);
-})();
 
-/* reveal on scroll */
+  requestAnimationFrame(draw);
+}
+draw();
+
+/* simple reveals */
 const io=new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target);} });
 },{threshold:.15});

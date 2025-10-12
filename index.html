@@ -15,7 +15,7 @@ html,body{margin:0;padding:0;background:#000;color:#fff;font-family:'Poppins',sa
 section{position:relative;padding:96px 8%;text-align:center}
 p{margin:0}
 
-/* ===== animated gradient text ===== */
+/* gradient text */
 .gradient-text{
   background:linear-gradient(270deg,var(--neon-a),var(--neon-b),var(--neon-c));
   background-size:600% 600%;
@@ -28,38 +28,21 @@ p{margin:0}
   100%{background-position:0% 50%}
 }
 
-/* ===== NAVBAR ===== */
+/* navbar */
 nav{
   position:fixed;top:0;left:0;width:100%;height:100px;z-index:1000;
   display:flex;align-items:center;justify-content:space-between;
   padding:0 6%;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);
   border-bottom:1px solid var(--line);
 }
-
-/* left group (logo + links) */
 .nav-left{
   display:flex;align-items:center;gap:24px;
 }
-.nav-logo{
-  width:56px;height:56px;border-radius:50%;
-  background:linear-gradient(270deg,var(--neon-a),var(--neon-b),var(--neon-c));
-  background-size:400% 400%;
-  animation:gradientShift 5s ease infinite, glow 4s ease-in-out infinite;
-  overflow:hidden;position:relative;cursor:pointer;
-}
-.nav-logo::after{
-  content:"";position:absolute;inset:-5px;background:inherit;border-radius:50%;filter:blur(12px);opacity:.7;z-index:-1;
-}
-.nav-logo img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
-.nav-logo:hover{transform:scale(1.1) rotate(6deg);}
 nav ul{list-style:none;display:flex;gap:22px;margin:0;padding:0}
 nav a{color:#fff;text-decoration:none;font-weight:600}
 nav a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc}
-
-/* stretched vertical title in center */
 .nav-center{
-  flex:1;display:flex;align-items:center;justify-content:center;
-  height:100%;
+  flex:1;display:flex;align-items:center;justify-content:center;height:100%;
 }
 .nav-center h1{
   font-size:2.8rem;
@@ -79,42 +62,24 @@ nav a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc}
   0%,100%{filter:brightness(1)}
   50%{filter:brightness(1.5)}
 }
-
 .spacer{height:100px}
 @media(max-width:860px){nav ul{display:none}}
 
-/* glow animation */
-@keyframes glow{
-  0%,100%{box-shadow:0 0 20px rgba(0,255,136,.4)}
-  50%{box-shadow:0 0 40px rgba(0,255,136,.8)}
-}
-
-/* ===== HERO ===== */
+/* hero */
 .hero{
   min-height:calc(100vh - 100px);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  display:flex;align-items:center;justify-content:center;
   overflow:hidden;position:relative;background:#000;text-align:center;
 }
-.hero h1{
-  font-size:3.5rem;font-weight:900;margin:0 0 12px;
-  transition:transform .35s ease,text-shadow .35s ease;
-}
-.hero h1:hover{transform:scale(1.08);text-shadow:0 0 18px rgba(0,255,200,.45)}
 
-.logo-frame{
-  width:200px;height:200px;margin:10px auto 18px;border-radius:50%;
-  background:linear-gradient(270deg,var(--neon-a),var(--neon-b),var(--neon-c));
-  background-size:400% 400%;
-  animation:gradientShift 5s ease infinite, glow 4s ease-in-out infinite;
-  transition:transform .6s,box-shadow .6s;position:relative;overflow:hidden;
+/* particles background */
+#particles{position:absolute;inset:0;z-index:0}
+.hero *:not(canvas){position:relative;z-index:2}
+.hero::after{
+  content:"";position:absolute;left:0;bottom:0;width:100%;height:60%;
+  background:linear-gradient(to bottom,rgba(0,0,0,0) 0%, #000 100%);
+  z-index:1;
 }
-.logo-frame::after{
-  content:"";position:absolute;inset:-8px;background:inherit;border-radius:50%;filter:blur(20px);opacity:.7;z-index:-1;
-}
-.logo-frame img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.logo-frame:hover{transform:scale(1.15) rotate(10deg);box-shadow:0 0 50px rgba(0,255,200,.6)}
-
-.hero .lead{max-width:720px;margin:0 auto 18px;opacity:.9}
 
 /* contact */
 .contact-box{max-width:640px;margin:18px auto 0}
@@ -131,13 +96,12 @@ input,textarea{
 
 footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacity:.85}
 
-/* reveal animation */
+/* reveal */
 .reveal{opacity:0;transform:translateY(50px);transition:opacity .9s,transform .9s}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 @media(max-width:720px){
   .nav-center h1{font-size:1.8rem;letter-spacing:2px}
-  .hero h1{font-size:2.6rem}
   section{padding:80px 6%}
 }
 </style>
@@ -147,9 +111,6 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 <!-- ===== NAVBAR ===== -->
 <nav>
   <div class="nav-left">
-    <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-      <img src="https://i.ibb.co/bRK52FS6/mind-hurricane-logo.png" alt="Mind Hurricane Logo">
-    </div>
     <ul>
       <li><a href="#hero">Home</a></li>
       <li><a href="#about">About</a></li>
@@ -159,22 +120,15 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
-
   <div class="nav-center">
     <h1>Mind Hurricane</h1>
   </div>
 </nav>
 <div class="spacer"></div>
 
-<!-- ===== HERO ===== -->
+<!-- ===== HERO (CLEAN) ===== -->
 <section id="hero" class="hero">
   <canvas id="particles"></canvas>
-  <h1 class="gradient-text reveal">Mind Hurricane</h1>
-  <div class="logo-frame reveal" id="logo">
-    <img src="https://i.ibb.co/bRK52FS6/mind-hurricane-logo.png" alt="Mind Hurricane Logo">
-  </div>
-  <p class="lead reveal">Autonomous Drones & Robotics Systems — Bridging IIT Innovation with Real-World Intelligence</p>
-  <a href="#about" class="btn reveal">Explore</a>
 </section>
 
 <!-- ===== ABOUT ===== -->
@@ -219,22 +173,11 @@ class Particle{
 for(let i=0;i<120;i++)particles.push(new Particle());
 (function loop(){ctx.clearRect(0,0,w,h);for(const p of particles){p.step();p.draw();}requestAnimationFrame(loop);})();
 
-/* reveal on scroll */
+/* scroll reveal */
 const io=new IntersectionObserver((entries)=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}})
 },{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-/* logo tilt */
-const logo=document.getElementById('logo');
-logo.addEventListener('mousemove',e=>{
-  const r=logo.getBoundingClientRect();
-  const x=e.clientX-r.left, y=e.clientY-r.top;
-  const cx=r.width/2, cy=r.height/2;
-  const rx=((y-cy)/cy)*10, ry=((x-cx)/cx)*-10;
-  logo.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) scale(1.15)`;
-});
-logo.addEventListener('mouseleave',()=>logo.style.transform='rotateX(0) rotateY(0)');
 </script>
 </body>
 </html>

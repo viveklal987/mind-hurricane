@@ -11,7 +11,10 @@
   --glass:#0a0f1e;--line:rgba(0,255,204,.12);
 }
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:#000;color:#fff;font-family:'Poppins',sans-serif;scroll-behavior:smooth;overflow-x:hidden}
+html,body{
+  margin:0;padding:0;background:#000;color:#fff;
+  font-family:'Poppins',sans-serif;scroll-behavior:smooth;overflow-x:hidden;
+}
 section{position:relative;padding:96px 8%;text-align:center}
 p{margin:0}
 
@@ -29,7 +32,7 @@ p{margin:0}
   100%{background-position:0% 50%}
 }
 
-/* NAVBAR */
+/* ===== NAVBAR ===== */
 nav{
   position:fixed;top:0;left:0;width:100%;height:100px;z-index:1000;
   display:flex;align-items:center;justify-content:space-between;
@@ -39,12 +42,12 @@ nav{
   border-bottom:1px solid var(--line);
 }
 
-/* left: logo + links */
+/* left: logo + title + links */
 .nav-left{
-  display:flex;align-items:center;gap:30px;
+  display:flex;
+  align-items:center;
+  gap:28px;
 }
-
-/* visible glowing logo */
 .nav-logo{
   width:60px;height:60px;border-radius:50%;
   background:linear-gradient(270deg,var(--neon-a),var(--neon-b),var(--neon-c));
@@ -63,29 +66,35 @@ nav{
 }
 .nav-logo:hover{transform:scale(1.1) rotate(6deg);}
 
-/* links */
-nav ul{list-style:none;display:flex;gap:22px;margin:0;padding:0}
-nav a{color:#fff;text-decoration:none;font-weight:600}
-nav a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc}
-
-/* stretched title in center */
-.nav-center{
-  flex:1;display:flex;align-items:center;justify-content:center;height:100%;
-}
-.nav-center h1{
-  font-size:2.8rem;font-weight:900;text-transform:uppercase;
-  letter-spacing:4px;margin:0;line-height:1;
+/* Mind Hurricane text beside logo */
+.nav-title{
+  font-size:2rem;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:2px;
   background:linear-gradient(90deg,var(--neon-a),var(--neon-b),var(--neon-c));
   background-size:300% 300%;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   animation:gradientShift 6s linear infinite,textPulse 4s ease-in-out infinite;
-  text-shadow:0 0 40px rgba(0,255,200,.4);
+  text-shadow:0 0 25px rgba(0,255,200,.35);
 }
 @keyframes textPulse{
   0%,100%{filter:brightness(1)}
   50%{filter:brightness(1.6)}
 }
+
+/* links */
+nav ul{
+  list-style:none;display:flex;gap:20px;margin:0;padding:0
+}
+nav a{
+  color:#fff;text-decoration:none;font-weight:600;font-size:0.95rem
+}
+nav a:hover{
+  color:#00ffcc;text-shadow:0 0 8px #00ffcc
+}
+
 .spacer{height:100px}
 @media(max-width:860px){nav ul{display:none}}
 
@@ -94,7 +103,7 @@ nav a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc}
   50%{box-shadow:0 0 40px rgba(0,255,136,.8)}
 }
 
-/* HERO */
+/* ===== HERO ===== */
 .hero{
   min-height:calc(100vh - 100px);
   display:flex;align-items:center;justify-content:center;
@@ -136,7 +145,7 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 @media(max-width:720px){
-  .nav-center h1{font-size:1.8rem;letter-spacing:2px}
+  .nav-title{font-size:1.5rem}
   section{padding:80px 6%}
 }
 </style>
@@ -149,6 +158,7 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
     <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
       <img src="https://i.ibb.co/bRK52FS6/mind-hurricane-logo.png" alt="Mind Hurricane Logo">
     </div>
+    <div class="nav-title">Mind Hurricane</div>
     <ul>
       <li><a href="#hero">Home</a></li>
       <li><a href="#about">About</a></li>
@@ -157,10 +167,6 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
       <li><a href="#team">Team</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-  </div>
-
-  <div class="nav-center">
-    <h1>Mind Hurricane</h1>
   </div>
 </nav>
 <div class="spacer"></div>

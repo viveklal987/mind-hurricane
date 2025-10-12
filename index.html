@@ -43,8 +43,8 @@ nav{
   border-bottom:1px solid var(--line);
 }
 
-/* left: logo + title */
-.nav-left{
+/* brand (logo + title) */
+.brand{
   display:flex;
   align-items:center;
   gap:12px;
@@ -77,7 +77,7 @@ nav{
   50%{filter:brightness(1.6)}
 }
 
-/* right-aligned nav links */
+/* nav links on right */
 .nav-links{
   display:flex;
   align-items:center;
@@ -118,7 +118,7 @@ nav{
 
 /* ===== FLOAT SECTIONS (overlapping hero) ===== */
 #about, #contact{
-  margin-top:-150px; /* moves them upward into hero background */
+  margin-top:-150px;
   background:rgba(0,0,0,0.6);
   backdrop-filter:blur(4px);
   border-radius:20px;
@@ -162,13 +162,15 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 
 <!-- ===== NAVBAR ===== -->
 <nav>
-  <div class="nav-left">
+  <!-- left side (brand) -->
+  <div class="brand">
     <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
       <img src="https://i.ibb.co/YFZhKCx7/mind-hurricane-logo.png" alt="Mind Hurricane Logo">
     </div>
     <div class="nav-title">Mind Hurricane</div>
   </div>
 
+  <!-- right side links -->
   <div class="nav-links">
     <a href="#hero">Home</a>
     <a href="#about">About</a>

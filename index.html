@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --neon-a:#00bfff;--neon-b:#00ff88;--neon-c:#00ffee;
+  --neon-a:#00bfff;--neon-b:#00ff88;--neon-c:#00ffee;--neon-d:#c800ff;
   --glass:#0a0f1e;--line:rgba(0,255,204,.12);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -26,12 +26,14 @@ nav{
   background:rgba(0,0,0,.8);
   backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
-  transition:height .4s ease,padding .4s ease;
+  transition:all .35s ease;
 }
 nav.shrink{
   height:55px;
   padding:0 5%;
 }
+nav.shrink .nav-logo{width:38px;height:38px;}
+nav.shrink .nav-title{font-size:1.35rem;}
 
 /* brand (logo + title) */
 .brand{
@@ -39,7 +41,7 @@ nav.shrink{
 }
 .nav-logo{
   width:44px;height:44px;border-radius:50%;
-  overflow:hidden;cursor:pointer;transition:transform .4s ease;
+  overflow:hidden;cursor:pointer;transition:transform .4s ease,width .3s,height .3s;
 }
 .nav-logo img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
 .nav-logo:hover{transform:scale(1.08) rotate(6deg);}
@@ -47,11 +49,11 @@ nav.shrink{
 /* Mind Hurricane text */
 .nav-title{
   font-size:1.6rem;font-weight:900;text-transform:uppercase;letter-spacing:2px;
-  background:linear-gradient(90deg,var(--neon-a),var(--neon-b),var(--neon-c),var(--neon-a));
-  background-size:300% 300%;
+  background:linear-gradient(90deg,var(--neon-a),var(--neon-b),var(--neon-c),var(--neon-d));
+  background-size:400% 400%;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  animation:gradientSwipe 4s linear infinite,textPulse 4s ease-in-out infinite;
-  transition:text-shadow .3s ease,transform .3s ease;
+  animation:gradientSwipe 3s linear infinite,textPulse 4s ease-in-out infinite;
+  transition:text-shadow .3s ease,transform .3s ease,font-size .3s ease;
 }
 .nav-title:hover{
   text-shadow:0 0 12px rgba(0,255,200,.6);
@@ -105,7 +107,6 @@ nav.shrink{
   .nav-links a{padding:10px 0;font-size:1rem;}
 }
 
-/* spacer */
 .spacer{height:70px;}
 
 /* ===== HERO ===== */
@@ -233,7 +234,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 /* navbar shrink on scroll */
 const navbar=document.getElementById('navbar');
-window.addEventListener('scroll',()=>{navbar.classList.toggle('shrink',window.scrollY>50);});
+window.addEventListener('scroll',()=>{navbar.classList.toggle('shrink',window.scrollY>60);});
 
 /* mobile menu toggle */
 const hamburger=document.getElementById('hamburger');

@@ -109,10 +109,10 @@ h2:hover{transform:scale(1.04);text-shadow:0 0 18px rgba(0,255,200,.45)}
 /* ===== Reach Us (Map Card) — CENTERED ===== */
 .reach-wrap{
   display:grid;grid-template-columns:1fr;gap:22px;max-width:1000px;margin:0 auto;
-  justify-items:center;                   /* center the card */
+  justify-items:center;
 }
 .map-card{
-  position:relative;border-radius:18px;padding:28px;text-align:center; /* centered text */
+  position:relative;border-radius:18px;padding:28px;text-align:center;
   background:linear-gradient(180deg,rgba(0,255,170,.10),rgba(0,0,0,.25));
   border:1px solid rgba(0,255,200,.18);
   box-shadow:0 0 40px rgba(0,255,200,.10);
@@ -128,7 +128,7 @@ h2:hover{transform:scale(1.04);text-shadow:0 0 18px rgba(0,255,200,.45)}
   filter:brightness(.95) contrast(1.1) saturate(1.05);
   box-shadow:inset 0 0 0 1px rgba(0,255,200,.18), 0 10px 30px rgba(0,255,200,.10);
   transition:filter .4s ease, transform .25s ease;
-  display:block;margin:12px auto;        /* center the iframe */
+  display:block;margin:12px auto;
 }
 .map-embed:hover{filter:brightness(1) contrast(1.05) saturate(1.1);transform:translateZ(0.01px)}
 
@@ -222,8 +222,13 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
     <h2 id="h-reach" class="reveal">Reach Us</h2>
     <div class="reach-wrap">
       <div class="map-card reveal" id="mapCard">
-        <p class="addr"><strong>Mind Hurricane</strong><br>
-          Technology Business Incubator Foundation, IIT Ropar, Punjab, India
+        <div class="title">Visit Our Lab</div>
+        <p class="addr">
+          <strong>Mind Hurricane</strong><br>
+          Technology Business Incubator Foundation<br>
+          Top Floor (East Wing), M. Visvesvaraya Block<br><br>
+          Indian Institute Of Technology, Ropar<br><br>
+          Rupnagar - 140001, Punjab, India
         </p>
 
         <!-- Embedded Google Map -->

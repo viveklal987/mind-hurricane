@@ -15,11 +15,12 @@ html,body{margin:0;padding:0;background:#000;color:#fff;font-family:'Poppins',sa
 section{position:relative;padding:96px 8%;text-align:center}
 p{margin:0}
 
-/* gradient text */
+/* ===== animated gradient text ===== */
 .gradient-text{
   background:linear-gradient(270deg,var(--neon-a),var(--neon-b),var(--neon-c));
   background-size:600% 600%;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
   animation:gradientShift 6s ease infinite;
 }
 @keyframes gradientShift{
@@ -28,21 +29,46 @@ p{margin:0}
   100%{background-position:0% 50%}
 }
 
-/* navbar */
+/* ===== NAVBAR ===== */
 nav{
   position:fixed;top:0;left:0;width:100%;height:100px;z-index:1000;
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 6%;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);
+  padding:0 6%;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(8px);
   border-bottom:1px solid var(--line);
 }
+
+/* left side: logo + links */
 .nav-left{
   display:flex;align-items:center;gap:24px;
 }
+.nav-logo{
+  width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(270deg,var(--neon-a),var(--neon-b),var(--neon-c));
+  background-size:400% 400%;
+  animation:gradientShift 5s ease infinite, glow 4s ease-in-out infinite;
+  overflow:hidden;position:relative;cursor:pointer;
+}
+.nav-logo::after{
+  content:"";position:absolute;inset:-5px;background:inherit;border-radius:50%;
+  filter:blur(12px);opacity:.7;z-index:-1;
+}
+.nav-logo img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.nav-logo:hover{transform:scale(1.1) rotate(6deg);}
+
+/* navigation links */
 nav ul{list-style:none;display:flex;gap:22px;margin:0;padding:0}
 nav a{color:#fff;text-decoration:none;font-weight:600}
 nav a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc}
+
+/* stretched title center */
 .nav-center{
-  flex:1;display:flex;align-items:center;justify-content:center;height:100%;
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:100%;
 }
 .nav-center h1{
   font-size:2.8rem;
@@ -62,41 +88,81 @@ nav a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc}
   0%,100%{filter:brightness(1)}
   50%{filter:brightness(1.5)}
 }
+
 .spacer{height:100px}
 @media(max-width:860px){nav ul{display:none}}
 
-/* hero */
-.hero{
-  min-height:calc(100vh - 100px);
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;position:relative;background:#000;text-align:center;
+@keyframes glow{
+  0%,100%{box-shadow:0 0 20px rgba(0,255,136,.4)}
+  50%{box-shadow:0 0 40px rgba(0,255,136,.8)}
 }
 
-/* particles background */
+/* ===== HERO ===== */
+.hero{
+  min-height:calc(100vh - 100px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  position:relative;
+  background:#000;
+  text-align:center;
+}
+
+/* only particles */
 #particles{position:absolute;inset:0;z-index:0}
 .hero *:not(canvas){position:relative;z-index:2}
 .hero::after{
-  content:"";position:absolute;left:0;bottom:0;width:100%;height:60%;
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:100%;
+  height:60%;
   background:linear-gradient(to bottom,rgba(0,0,0,0) 0%, #000 100%);
   z-index:1;
 }
 
-/* contact */
+/* ===== ABOUT ===== */
+h2{
+  font-size:2.4rem;font-weight:800;margin:0 0 16px;
+  transition:transform .35s ease,text-shadow .35s ease;
+}
+h2:hover{transform:scale(1.05);text-shadow:0 0 18px rgba(0,255,200,.5)}
+.sub{opacity:.9}
+
+/* ===== CONTACT ===== */
 .contact-box{max-width:640px;margin:18px auto 0}
 input,textarea{
-  width:100%;padding:12px 14px;border:none;border-radius:10px;
-  background:#111a2f;color:#fff;margin:0 0 12px;font-size:1rem;outline:none
+  width:100%;
+  padding:12px 14px;
+  border:none;
+  border-radius:10px;
+  background:#111a2f;
+  color:#fff;
+  margin:0 0 12px;
+  font-size:1rem;
+  outline:none;
 }
 #contact button{
   background:linear-gradient(90deg,var(--neon-a),var(--neon-b));
-  border:none;color:#000;padding:.9rem 2rem;border-radius:40px;
-  font-weight:700;cursor:pointer
+  border:none;
+  color:#000;
+  padding:.9rem 2rem;
+  border-radius:40px;
+  font-weight:700;
+  cursor:pointer;
 }
 #contact button:hover{transform:translateY(-2px)}
 
-footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacity:.85}
+footer{
+  padding:28px 8%;
+  text-align:center;
+  border-top:1px solid var(--line);
+  opacity:.85;
+}
 
-/* reveal */
+/* reveal animation */
 .reveal{opacity:0;transform:translateY(50px);transition:opacity .9s,transform .9s}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
@@ -111,6 +177,9 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 <!-- ===== NAVBAR ===== -->
 <nav>
   <div class="nav-left">
+    <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+      <img src="https://i.ibb.co/bRK52FS6/mind-hurricane-logo.png" alt="Mind Hurricane Logo">
+    </div>
     <ul>
       <li><a href="#hero">Home</a></li>
       <li><a href="#about">About</a></li>
@@ -120,6 +189,7 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
+
   <div class="nav-center">
     <h1>Mind Hurricane</h1>
   </div>
@@ -149,7 +219,10 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
       <button type="submit">Submit</button>
     </form>
   </div>
-  <p class="sub reveal">📧 <strong>Email:</strong> <a href="mailto:mindhurricane.tech@gmail.com">mindhurricane.tech@gmail.com</a></p>
+  <p class="sub reveal">
+    📧 <strong>Email:</strong>
+    <a href="mailto:mindhurricane.tech@gmail.com">mindhurricane.tech@gmail.com</a>
+  </p>
 </section>
 
 <footer>© 2025 Mind Hurricane • Incubated at IIT Ropar • Made with ⚡ in India</footer>
@@ -165,13 +238,27 @@ class Particle{
   constructor(){this.reset(true);}
   reset(all=false){
     this.x=Math.random()*w;this.y=all?Math.random()*h:Math.random()*h*.6;
-    this.vx=(Math.random()-.5)*.5;this.vy=(Math.random()-.5)*.5;this.size=Math.random()*2+.6;
+    this.vx=(Math.random()-.5)*.5;
+    this.vy=(Math.random()-.5)*.5;
+    this.size=Math.random()*2+.6;
   }
-  step(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>w||this.y<0||this.y>h)this.reset();}
-  draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,2*Math.PI);ctx.fillStyle='rgba(0,255,204,.5)';ctx.fill();}
+  step(){
+    this.x+=this.vx;this.y+=this.vy;
+    if(this.x<0||this.x>w||this.y<0||this.y>h)this.reset();
+  }
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,2*Math.PI);
+    ctx.fillStyle='rgba(0,255,204,.5)';
+    ctx.fill();
+  }
 }
 for(let i=0;i<120;i++)particles.push(new Particle());
-(function loop(){ctx.clearRect(0,0,w,h);for(const p of particles){p.step();p.draw();}requestAnimationFrame(loop);})();
+(function loop(){
+  ctx.clearRect(0,0,w,h);
+  for(const p of particles){p.step();p.draw();}
+  requestAnimationFrame(loop);
+})();
 
 /* scroll reveal */
 const io=new IntersectionObserver((entries)=>{

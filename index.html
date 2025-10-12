@@ -36,25 +36,24 @@ p{margin:0}
 /* ===== NAVBAR ===== */
 nav{
   position:fixed;top:0;left:0;width:100%;height:100px;z-index:1000;
-  display:flex;align-items:center;justify-content:space-between;
+  display:flex;align-items:center;justify-content:center;
   padding:0 6%;
   background:rgba(0,0,0,.8);
   backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
 }
 
-/* brand section (logo + title) */
-.brand{
+/* brand section (logo) */
+.nav-left{
+  position:absolute;
+  left:6%;
   display:flex;
   align-items:center;
-  gap:20px;
+  gap:14px;
 }
-
-/* logo - no halo, no glow */
 .nav-logo{
   width:58px;height:58px;border-radius:50%;
-  overflow:hidden;
-  cursor:pointer;
+  overflow:hidden;cursor:pointer;
   transition:transform .4s ease;
 }
 .nav-logo img{
@@ -64,8 +63,11 @@ nav{
   transform:scale(1.08) rotate(6deg);
 }
 
-/* Mind Hurricane beside logo */
+/* centered Mind Hurricane */
 .nav-title{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
   font-size:2rem;
   font-weight:900;
   text-transform:uppercase;
@@ -82,9 +84,10 @@ nav{
   50%{filter:brightness(1.6)}
 }
 
-/* nav links (completely right) */
+/* right-aligned nav links */
 .nav-links{
-  margin-left:auto;
+  position:absolute;
+  right:6%;
   display:flex;
   align-items:center;
   gap:28px;
@@ -153,13 +156,17 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 
 <!-- ===== NAVBAR ===== -->
 <nav>
-  <div class="brand">
+  <!-- left side -->
+  <div class="nav-left">
     <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
       <img src="https://i.ibb.co/YFZhKCx7/mind-hurricane-logo.png" alt="Mind Hurricane Logo">
     </div>
-    <div class="nav-title">Mind Hurricane</div>
   </div>
 
+  <!-- centered title -->
+  <div class="nav-title">Mind Hurricane</div>
+
+  <!-- right side links -->
   <div class="nav-links">
     <a href="#hero">Home</a>
     <a href="#about">About</a>

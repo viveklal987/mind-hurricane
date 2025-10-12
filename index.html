@@ -1,1 +1,260 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width,initial-scale=1.0" /> <title>Mind Hurricane — Autonomous Robotics & AI Systems</title> <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet"> <style> :root{ --neon-a:#00bfff;--neon-b:#00ff88;--neon-c:#ff00ff; --glass:#0a0f1e;--line:rgba(0,255,204,.12); } *{box-sizing:border-box} html,body{margin:0;padding:0;background:#000;color:#fff;font-family:'Poppins',sans-serif;scroll-behavior:smooth;overflow-x:hidden} section{position:relative;padding:96px 8%;text-align:center} p{margin:0} /* ===== animated gradient text (also used by section titles) ===== */ .gradient-text{ background:linear-gradient(270deg,var(--neon-a),var(--neon-b),var(--neon-c)); background-size:600% 600%; -webkit-background-clip:text;-webkit-text-fill-color:transparent; animation:gradientShift 6s ease infinite; } @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}} /* headings (grow + glow on hover) */ h2{ font-size:2.4rem;font-weight:800;margin:0 0 16px; transition:transform .35s ease,text-shadow .35s ease; } h2:hover{transform:scale(1.05);text-shadow:0 0 18px rgba(0,255,200,.5)} .sub{opacity:.9} /* buttons */ .btn{ display:inline-block;margin-top:14px;padding:.9rem 2.2rem;border-radius:40px; background:linear-gradient(90deg,var(--neon-a),var(--neon-b)); color:#000;font-weight:700;transition:transform .25s,box-shadow .25s; } .btn:hover{transform:translateY(-3px);box-shadow:0 0 25px rgba(0,255,200,.6)} /* grid + 3d context */ .grid{display:grid;gap:28px} section,.grid,.mv{perspective:1000px} /* cards: continuous glow + stronger tilt */ .card{ background:var(--glass);border:1px solid var(--line);border-radius:16px;padding:24px; box-shadow:0 0 22px rgba(0,255,204,.08); transform-style:preserve-3d; transition:transform .35s,box-shadow .35s,filter .35s; animation:cardGlow 4s ease-in-out infinite alternate; } .card:hover{ transform:translateY(-10px) rotateX(10deg) rotateY(-8deg); box-shadow:0 0 35px rgba(0,255,200,.3),0 0 25px rgba(0,255,200,.15); filter:brightness(1.1); } @keyframes cardGlow{ 0%{box-shadow:0 0 18px rgba(0,255,136,.15)} 50%{box-shadow:0 0 40px rgba(0,255,200,.3)} 100%{box-shadow:0 0 18px rgba(255,0,255,.15)} } /* navbar */ nav{ position:fixed;top:0;left:0;width:100%;height:64px;z-index:1000; display:flex;align-items:center;justify-content:space-between; padding:12px 8%;background:rgba(0,0,0,.72);backdrop-filter:blur(8px); border-bottom:1px solid var(--line); } nav h1{font-size:1.4rem;font-weight:900} nav ul{list-style:none;display:flex;gap:26px;margin:0;padding:0} nav a{color:#fff;text-decoration:none;font-weight:600} nav a:hover{color:#00ffcc;text-shadow:0 0 8px #00ffcc} .spacer{height:64px} @media(max-width:860px){nav ul{display:none}} /* hero */ .hero{ min-height:calc(100vh - 64px); display:flex;flex-direction:column;align-items:center;justify-content:center; overflow:hidden;position:relative;background:#000;text-align:center; } .hero h1{ font-size:3.5rem;font-weight:900;margin:0 0 12px; transition:transform .35s ease,text-shadow .35s ease; display:inline-block; } .hero h1:hover{transform:scale(1.08);text-shadow:0 0 18px rgba(0,255,200,.45)} /* round logo (gradient glow + tilt + grow on hover) */ .logo-frame{ width:200px;height:200px;margin:10px auto 18px; border-radius:50%;padding:10px; background:linear-gradient(270deg,var(--neon-a),var(--neon-b),var(--neon-c)); background-size:400% 400%; animation:gradientShift 5s ease infinite, glow 4s ease-in-out infinite; transition:transform .6s,box-shadow .6s; } .logo-frame img{width:100%;height:100%;object-fit:cover;border-radius:50%} .logo-frame:hover{transform:scale(1.15) rotate(10deg);box-shadow:0 0 40px rgba(0,255,200,.6)} .hero .lead{max-width:720px;margin:0 auto 18px;opacity:.9} /* particles + fade */ #particles{position:absolute;inset:0;z-index:0} .hero *:not(canvas){position:relative;z-index:2} .hero::after{ content:"";position:absolute;left:0;bottom:0;width:100%;height:60%; background:linear-gradient(to bottom,rgba(0,0,0,0) 0%, #000 100%);z-index:1; } /* sections layout */ .features{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:28px} .feature h3{color:#00ffcc;margin:0 0 8px} .mv{display:flex;flex-wrap:wrap;gap:28px;justify-content:center;margin-top:28px} .mv .card{flex:1 1 320px;max-width:520px} .mv h3{color:#00ffcc;margin:0 0 10px} .industries{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:20px} .industry h4{color:#00ffcc;margin:0 0 6px} .tech-row{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:24px} .tech{border:1px solid var(--line);background:#0b1223;border-radius:40px;padding:12px 18px;transition:transform .3s} .tech span{color:#00ffcc;font-weight:600} .tech:hover{transform:scale(1.1)} .products{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:22px} .product img{border-radius:12px;margin-bottom:12px;width:100%;height:180px;object-fit:cover} .product h3{color:#00ffcc;margin:4px 0 8px} .team{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:22px} .member img{width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto 10px} .member h4{color:#00ffcc;margin:6px 0} .partners{display:flex;flex-wrap:wrap;gap:40px;justify-content:center;align-items:center;margin-top:18px;opacity:.85} .partners img{height:60px;filter:brightness(0) invert(1);opacity:.82;transition:.3s} .partners img:hover{opacity:1;transform:scale(1.05)} #cta{background:linear-gradient(135deg,#001f33 0%,#000 100%)} #cta .sub{max-width:760px;margin:0 auto 10px} /* contact / map (wider rectangular box) */ .contact-box{max-width:640px;margin:18px auto 0} input,textarea{width:100%;padding:12px 14px;border:none;border-radius:10px;background:#111a2f;color:#fff;margin:0 0 12px;font-size:1rem;outline:none} #contact button{background:linear-gradient(90deg,var(--neon-a),var(--neon-b));border:none;color:#000;padding:.9rem 2rem;border-radius:40px;font-weight:700;cursor:pointer} #contact button:hover{transform:translateY(-2px)} .map-box{ width:700px;height:400px;margin:30px auto 0; position:relative;overflow:hidden;border-radius:16px;border:1px solid rgba(0,255,204,.15); box-shadow:0 0 40px rgba(0,255,200,.1); } .map-box::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(0,255,204,.08) 0%, transparent 70%);pointer-events:none} .map-box iframe{width:100%;height:100%;border:0;border-radius:16px;filter:brightness(.85) contrast(1.2);transition:filter .6s} .map-box iframe:hover{filter:brightness(1) contrast(1.1) saturate(1.2)} /* footer */ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacity:.85} /* reveal on scroll */ .reveal{opacity:0;transform:translateY(50px);transition:opacity .9s,transform .9s} .reveal.visible{opacity:1;transform:translateY(0)} /* misc */ @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(0,255,136,.4)}50%{box-shadow:0 0 40px rgba(0,255,136,.8)}} @media(max-width:720px){.hero h1{font-size:2.6rem}section{padding:80px 6%}.map-box{width:90%;height:320px}} </style> </head> <body> <nav> <h1 class="gradient-text">Mind Hurricane</h1> <ul> <li><a href="#hero">Home</a></li><li><a href="#about">About</a></li> <li><a href="#products">Products</a></li><li><a href="#industries">Industries</a></li> <li><a href="#team">Team</a></li><li><a href="#contact">Contact</a></li> </ul> </nav> <div class="spacer"></div> <!-- ===== HERO ===== --> <section id="hero" class="hero"> <canvas id="particles"></canvas> <h1 class="gradient-text reveal">Mind Hurricane</h1> <div class="logo-frame reveal"> <img src="https://i.ibb.co/bRK52FS6/mind-hurricane-logo.png" alt="Mind Hurricane Logo"> </div> <p class="lead reveal">Autonomous Drones & Robotics Systems — Bridging IIT Innovation with Real-World Intelligence</p> <a href="#about" class="btn reveal">Explore</a> </section> <!-- ===== ABOUT ===== --> <section id="about"> <h2 class="gradient-text reveal">About Us</h2> <p class="sub reveal"><strong>Mind Hurricane</strong> is an IIT-incubated robotics and AI startup developing next-generation autonomous systems for defence, policing, and agri-tech sectors.</p> <div class="grid features"> <div class="card feature reveal"><h3>Born in IIT Labs</h3><p class="sub">Engineers and researchers with IIT expertise in robotics, embedded systems, and AI.</p></div> <div class="card feature reveal"><h3>AI-Powered Autonomy</h3><p class="sub">Adaptive decision-making, real-time mapping, and mission optimization at the edge.</p></div> <div class="card feature reveal"><h3>Reliable & Field-Tested</h3><p class="sub">Ruggedized platforms validated in harsh environments and real deployments.</p></div> </div> </section> <!-- ===== MISSION ===== --> <section id="mission"> <h2 class="gradient-text reveal">Mission & Vision</h2> <div class="mv"> <div class="card reveal"><h3>Our Mission</h3><p class="sub">Deliver field-ready robotics that enhance human capability, security, and sustainability.</p></div> <div class="card reveal"><h3>Our Vision</h3><p class="sub">Make India a global hub for autonomous robotics — uniting Make-in-India values with world-class research.</p></div> </div> </section> <!-- ===== INDUSTRIES ===== --> <section id="industries"> <h2 class="gradient-text reveal">Industries We Serve</h2> <div class="grid industries"> <div class="card industry reveal"><h4>Defence & Surveillance</h4><p class="sub">Autonomous aerial and ground systems for reconnaissance and patrol.</p></div> <div class="card industry reveal"><h4>Law Enforcement</h4><p class="sub">AI drones for policing, crowd monitoring, and rapid response.</p></div> <div class="card industry reveal"><h4>Agriculture</h4><p class="sub">Precision spraying, crop analytics, and yield prediction.</p></div> <div class="card industry reveal"><h4>Research & Education</h4><p class="sub">Custom robotics kits and simulation frameworks.</p></div> </div> </section> <!-- ===== TECH ===== --> <section id="tech"> <h2 class="gradient-text reveal">Our Technology Stack</h2> <div class="tech-row"> <div class="tech reveal"><span>Embedded C / C++</span></div> <div class="tech reveal"><span>ROS 2</span></div> <div class="tech reveal"><span>TensorFlow</span></div> <div class="tech reveal"><span>OpenCV</span></div> <div class="tech reveal"><span>Python</span></div> <div class="tech reveal"><span>NVIDIA Jetson / RPi</span></div> <div class="tech reveal"><span>SLAM & NavStack</span></div> </div> </section> <!-- ===== PRODUCTS ===== --> <section id="products"> <h2 class="gradient-text reveal">Our Innovations</h2> <div class="grid products"> <div class="card product reveal"><img src="https://i.ibb.co/NF7xkrv/drone1.jpg" alt="Drone"><h3>MH-AeroX Drone</h3><p class="sub">Autonomous aerial surveillance with AI detection, 4K optics, 60-min endurance.</p></div> <div class="card product reveal"><img src="https://i.ibb.co/B4WrX8L/robot1.jpg" alt="Rover"><h3>TerraBot Rover</h3><p class="sub">All-terrain robotic assistant for mapping and payload handling.</p></div> <div class="card product reveal"><img src="https://i.ibb.co/CKhjLnb/controlstation.jpg" alt="Command"><h3>Command Core</h3><p class="sub">Unified control integrating telemetry, vision, AI mission planning.</p></div> </div> </section> <!-- ===== TEAM ===== --> <section id="team"> <h2 class="gradient-text reveal">Our Team</h2> <div class="grid team"> <div class="card member reveal"><img src="https://i.ibb.co/DfMgbfB/team1.jpg" alt="Vivek Sharma"><h4>Vivek Sharma</h4><p class="sub">Founder & Robotics Engineer</p></div> <div class="card member reveal"><img src="https://i.ibb.co/zsGcZLp/team2.jpg" alt="Dr. Neha R."><h4>Dr. Neha R.</h4><p class="sub">AI Systems Architect</p></div> <div class="card member reveal"><img src="https://i.ibb.co/rdVhH2m/team3.jpg" alt="Arjun Patel"><h4>Arjun Patel</h4><p class="sub">Embedded Hardware Lead</p></div> </div> </section> <!-- ===== PARTNERS ===== --> <section id="partners"> <h2 class="gradient-text reveal">Collaborations & Partners</h2> <div class="partners"> <img class="reveal" src="https://upload.wikimedia.org/wikipedia/en/6/6b/IIT_Ropar_logo.png" alt="IIT Ropar"> <img class="reveal" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Make_In_India_logo.svg" alt="Make in India"> <img class="reveal" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/DRDO_India_Logo.svg" alt="DRDO"> </div> </section> <!-- ===== CTA ===== --> <section id="cta"> <h2 class="gradient-text reveal">Ready to Collaborate?</h2> <p class="sub reveal">Partner with Mind Hurricane to bring autonomous intelligence to your domain.</p> <a href="#contact" class="btn reveal">Get in Touch</a> </section> <!-- ===== CONTACT ===== --> <section id="contact"> <h2 class="gradient-text reveal">Contact Us</h2> <p class="sub reveal">We’re open to collaborations, pilots, and research partnerships.</p> <div class="card contact-box reveal"> <form onsubmit="event.preventDefault();window.open('https://mail.google.com/mail/?view=cm&fs=1&to=mindhurricane.tech@gmail.com','_blank')"> <input type="text" placeholder="Your Name" required> <input type="email" placeholder="Your Email" required> <textarea rows="5" placeholder="Your Message" required></textarea> <button type="submit">Submit</button> </form> </div> <p class="sub reveal">📧 <strong>Email:</strong> <a href="mailto:mindhurricane.tech@gmail.com">mindhurricane.tech@gmail.com</a></p> <div class="map-box reveal"> <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3421.065664751018!2d76.47140267620014!3d30.9686496741917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390555f908989215%3A0x7c69dadcbc7de4b4!2sMind%20Hurricane!5e0!3m2!1sen!2sin!4v1759856044109!5m2!1sen!2sin" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe> </div> <p class="sub reveal" style="margin-top:8px">Technology Business Incubator Foundation, IIT Ropar, Punjab, India</p> </section> <footer>© 2025 Mind Hurricane • Incubated at IIT Ropar • Made with ⚡ in India</footer> <!-- ===== SCRIPTS ===== --> <script> /* particles background */ const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d'); let w,h,particles=[]; function resize(){w=canvas.width=innerWidth;h=canvas.height=document.getElementById('hero').offsetHeight;} addEventListener('resize',resize,{passive:true});resize(); class Particle{ constructor(){this.reset(true);} reset(all=false){this.x=Math.random()*w;this.y=all?Math.random()*h:Math.random()*h*.6; this.vx=(Math.random()-.5)*.5;this.vy=(Math.random()-.5)*.5;this.size=Math.random()*2+.6;} step(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>w||this.y<0||this.y>h)this.reset();} draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,2*Math.PI);ctx.fillStyle='rgba(0,255,204,.5)';ctx.fill();} } for(let i=0;i<120;i++)particles.push(new Particle()); (function loop(){ctx.clearRect(0,0,w,h);for(const p of particles){p.step();p.draw();}requestAnimationFrame(loop);})(); /* scroll reveal */ const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}})},{threshold:.15}); document.querySelectorAll('.reveal').forEach(el=>io.observe(el)); /* cursor-follow 3D tilt for cards */ document.querySelectorAll('.card').forEach(card=>{ card.addEventListener('mousemove',e=>{ const r=card.getBoundingClientRect(); const x=e.clientX-r.left, y=e.clientY-r.top; const cx=r.width/2, cy=r.height/2; const rx=((y-cy)/cy)*10, ry=((x-cx)/cx)*-10; card.style.transform=rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px); }); card.addEventListener('mouseleave',()=>card.style.transform='rotateX(0) rotateY(0)'); }); </script> </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>Mind Hurricane — Autonomous Robotics & AI Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --neon-a:#00bfff;--neon-b:#00ff88;--neon-c:#ff00ff;
+  --glass:#0a0f1e;--line:rgba(0,255,204,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;color:#fff;font-family:'Poppins',sans-serif;scroll-behavior:smooth;overflow-x:hidden}
+section{position:relative;padding:140px 8%;text-align:center}
+p{margin:0}
+
+/* ===== Gradient Text ===== */
+.gradient-text{
+  background:linear-gradient(270deg,var(--neon-a),var(--neon-b),var(--neon-c));
+  background-size:600% 600%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:gradientShift 6s ease infinite;
+}
+@keyframes gradientShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* ===== Navbar ===== */
+nav{
+  position:fixed;top:0;left:0;width:100%;height:72px;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 8%;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+nav h1{font-size:1.5rem;font-weight:900}
+nav ul{list-style:none;display:flex;gap:34px}
+nav a{color:#fff;text-decoration:none;font-weight:600;transition:color .3s}
+nav a:hover{color:#00ffcc;text-shadow:0 0 10px #00ffcc}
+.spacer{height:72px}
+@media(max-width:860px){nav ul{display:none}}
+
+/* ===== Hero Section ===== */
+.hero{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:#000;
+  overflow:hidden;
+  position:relative;
+  text-align:center;
+}
+#particles{position:absolute;inset:0;z-index:0}
+.hero *:not(canvas){position:relative;z-index:2}
+.hero h1{
+  font-size:clamp(3rem,8vw,6rem);
+  font-weight:900;
+  margin-bottom:16px;
+  transition:transform .4s ease,text-shadow .4s ease;
+}
+.hero h1:hover{transform:scale(1.05);text-shadow:0 0 25px rgba(0,255,200,.45)}
+.logo-frame{
+  width:220px;height:220px;margin:0 auto 22px;
+  border-radius:50%;padding:10px;
+  background:linear-gradient(270deg,var(--neon-a),var(--neon-b),var(--neon-c));
+  background-size:400% 400%;
+  animation:gradientShift 6s ease infinite, glow 4s ease-in-out infinite;
+  transition:transform .6s,box-shadow .6s;
+}
+.logo-frame img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.logo-frame:hover{transform:scale(1.1) rotate(10deg);box-shadow:0 0 40px rgba(0,255,200,.6)}
+.hero p{max-width:800px;margin:0 auto;color:#ccc;font-size:1.2rem;opacity:.9}
+.btn{
+  display:inline-block;margin-top:28px;padding:1rem 2.6rem;border-radius:50px;
+  background:linear-gradient(90deg,var(--neon-a),var(--neon-b));
+  color:#000;font-weight:700;transition:transform .25s,box-shadow .25s;
+}
+.btn:hover{transform:translateY(-4px);box-shadow:0 0 30px rgba(0,255,200,.6)}
+
+/* ===== Apple-Style Layout Sections ===== */
+section h2{
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:800;
+  margin-bottom:24px;
+}
+section .sub{
+  font-size:1.1rem;
+  max-width:880px;
+  margin:0 auto 60px;
+  color:#aaa;
+  line-height:1.8;
+}
+.grid{
+  display:grid;
+  gap:48px;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+}
+.card{
+  background:var(--glass);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:36px;
+  box-shadow:0 0 25px rgba(0,255,204,.08);
+  transform-style:preserve-3d;
+  transition:transform .35s,box-shadow .35s,filter .35s;
+  animation:cardGlow 4s ease-in-out infinite alternate;
+}
+.card:hover{
+  transform:translateY(-10px) rotateX(8deg) rotateY(-6deg);
+  box-shadow:0 0 40px rgba(0,255,200,.25);
+  filter:brightness(1.1);
+}
+@keyframes cardGlow{
+  0%{box-shadow:0 0 20px rgba(0,255,136,.15)}
+  50%{box-shadow:0 0 40px rgba(0,255,200,.3)}
+  100%{box-shadow:0 0 20px rgba(255,0,255,.15)}
+}
+
+/* ===== Partners / Team / Contact simplified visually ===== */
+.partners,.team{display:flex;flex-wrap:wrap;gap:60px;justify-content:center;align-items:center}
+.partners img{height:60px;filter:brightness(0) invert(1);opacity:.8;transition:.3s}
+.partners img:hover{opacity:1;transform:scale(1.05)}
+.member img{width:130px;height:130px;border-radius:50%;margin-bottom:14px}
+.member h4{color:#00ffcc;margin:6px 0}
+.member p{color:#aaa}
+
+/* ===== Footer ===== */
+footer{
+  padding:50px 8%;
+  text-align:center;
+  border-top:1px solid var(--line);
+  color:#888;
+  font-size:.95rem;
+}
+
+/* ===== Animations & Reveal ===== */
+.reveal{opacity:0;transform:translateY(50px);transition:opacity 1s,transform 1s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@keyframes glow{
+  0%,100%{box-shadow:0 0 20px rgba(0,255,136,.4)}
+  50%{box-shadow:0 0 40px rgba(0,255,136,.8)}
+}
+@media(max-width:720px){
+  .hero h1{font-size:2.6rem}
+  section{padding:100px 6%}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <h1 class="gradient-text">Mind Hurricane</h1>
+  <ul>
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+<div class="spacer"></div>
+
+<!-- HERO -->
+<section id="hero" class="hero">
+  <canvas id="particles"></canvas>
+  <div class="logo-frame reveal"><img src="https://i.ibb.co/bRK52FS6/mind-hurricane-logo.png" alt="Logo"></div>
+  <h1 class="gradient-text reveal">Mind Hurricane</h1>
+  <p class="reveal">Autonomous Drones & Robotics Systems — Bridging IIT Innovation with Real-World Intelligence</p>
+  <a href="#about" class="btn reveal">Explore</a>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <h2 class="gradient-text reveal">About Us</h2>
+  <p class="sub reveal"><strong>Mind Hurricane</strong> is an IIT-incubated robotics and AI startup developing next-generation autonomous systems for defence, policing, and agri-tech sectors.</p>
+  <div class="grid">
+    <div class="card reveal"><h3>Born in IIT Labs</h3><p>Engineers and researchers with IIT expertise in robotics, embedded systems, and AI.</p></div>
+    <div class="card reveal"><h3>AI-Powered Autonomy</h3><p>Adaptive decision-making, real-time mapping, and mission optimization at the edge.</p></div>
+    <div class="card reveal"><h3>Reliable & Field-Tested</h3><p>Ruggedized platforms validated in harsh environments and real deployments.</p></div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <h2 class="gradient-text reveal">Our Innovations</h2>
+  <div class="grid">
+    <div class="card reveal"><img src="https://i.ibb.co/NF7xkrv/drone1.jpg" alt="Drone" style="width:100%;border-radius:14px;margin-bottom:14px"><h3>MH-AeroX Drone</h3><p>Autonomous aerial surveillance with AI detection, 4K optics, 60-min endurance.</p></div>
+    <div class="card reveal"><img src="https://i.ibb.co/B4WrX8L/robot1.jpg" alt="Rover" style="width:100%;border-radius:14px;margin-bottom:14px"><h3>TerraBot Rover</h3><p>All-terrain robotic assistant for mapping and payload handling.</p></div>
+    <div class="card reveal"><img src="https://i.ibb.co/CKhjLnb/controlstation.jpg" alt="Command" style="width:100%;border-radius:14px;margin-bottom:14px"><h3>Command Core</h3><p>Unified control integrating telemetry, vision, AI mission planning.</p></div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section id="industries">
+  <h2 class="gradient-text reveal">Industries We Serve</h2>
+  <div class="grid">
+    <div class="card reveal"><h4>Defence & Surveillance</h4><p>Autonomous aerial and ground systems for reconnaissance and patrol.</p></div>
+    <div class="card reveal"><h4>Law Enforcement</h4><p>AI drones for policing, crowd monitoring, and rapid response.</p></div>
+    <div class="card reveal"><h4>Agriculture</h4><p>Precision spraying, crop analytics, and yield prediction.</p></div>
+    <div class="card reveal"><h4>Research & Education</h4><p>Custom robotics kits and simulation frameworks.</p></div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <h2 class="gradient-text reveal">Our Team</h2>
+  <div class="team">
+    <div class="member reveal"><img src="https://i.ibb.co/DfMgbfB/team1.jpg" alt=""><h4>Vivek Sharma</h4><p>Founder & Robotics Engineer</p></div>
+    <div class="member reveal"><img src="https://i.ibb.co/zsGcZLp/team2.jpg" alt=""><h4>Dr. Neha R.</h4><p>AI Systems Architect</p></div>
+    <div class="member reveal"><img src="https://i.ibb.co/rdVhH2m/team3.jpg" alt=""><h4>Arjun Patel</h4><p>Embedded Hardware Lead</p></div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section id="partners">
+  <h2 class="gradient-text reveal">Collaborations & Partners</h2>
+  <div class="partners">
+    <img src="https://upload.wikimedia.org/wikipedia/en/6/6b/IIT_Ropar_logo.png" alt="IIT Ropar" class="reveal">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Make_In_India_logo.svg" alt="Make in India" class="reveal">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/DRDO_India_Logo.svg" alt="DRDO" class="reveal">
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2 class="gradient-text reveal">Contact Us</h2>
+  <p class="sub reveal">We’re open to collaborations, pilots, and research partnerships.</p>
+  <p class="sub reveal">📧 <strong>Email:</strong> <a href="mailto:mindhurricane.tech@gmail.com">mindhurricane.tech@gmail.com</a></p>
+</section>
+
+<footer>© 2025 Mind Hurricane • Incubated at IIT Ropar • Made with ⚡ in India</footer>
+
+<script>
+/* particles background */
+const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
+let w,h,particles=[];
+function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;}
+addEventListener('resize',resize,{passive:true});resize();
+class Particle{
+  constructor(){this.reset(true);}
+  reset(all=false){this.x=Math.random()*w;this.y=all?Math.random()*h:Math.random()*h*.6;
+    this.vx=(Math.random()-.5)*.5;this.vy=(Math.random()-.5)*.5;this.size=Math.random()*2+.6;}
+  step(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>w||this.y<0||this.y>h)this.reset();}
+  draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,2*Math.PI);ctx.fillStyle='rgba(0,255,204,.5)';ctx.fill();}
+}
+for(let i=0;i<120;i++)particles.push(new Particle());
+(function loop(){ctx.clearRect(0,0,w,h);for(const p of particles){p.step();p.draw();}requestAnimationFrame(loop);})();
+
+/* scroll reveal */
+const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

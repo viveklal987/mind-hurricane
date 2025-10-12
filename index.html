@@ -7,7 +7,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --neon-b:#00ff88; /* neon green */
+  --neon-b:#00ff88; /* soft neon green */
+  --neon-bright:#00ff55; /* bright electric green */
   --neon-c:#00ffee; /* cyan */
   --neon-d:#c800ff; /* purple */
   --line:rgba(0,255,204,.12);
@@ -52,6 +53,7 @@ nav.shrink .nav-title{font-size:1.35rem;}
   font-size:1.6rem;font-weight:900;text-transform:uppercase;letter-spacing:2px;
   background:linear-gradient(270deg,
     var(--neon-b),
+    var(--neon-bright),
     var(--neon-c),
     var(--neon-d),
     var(--neon-b)
@@ -77,7 +79,7 @@ nav.shrink .nav-title{font-size:1.35rem;}
   50%{filter:brightness(1.4);}
 }
 
-/* ===== NAV LINKS (Clean white, smooth hover) ===== */
+/* ===== NAV LINKS (clean white hover) ===== */
 .nav-links{
   display:flex;align-items:center;gap:22px;
 }

@@ -7,8 +7,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --neon-a:#00bfff;--neon-b:#00ff88;--neon-c:#00ffee;--neon-d:#c800ff;
-  --glass:#0a0f1e;--line:rgba(0,255,204,.12);
+  --neon-a:#00bfff;
+  --neon-b:#00ff88;
+  --neon-c:#00ffee;
+  --neon-d:#c800ff;
+  --line:rgba(0,255,204,.12);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{
@@ -29,8 +32,7 @@ nav{
   transition:all .35s ease;
 }
 nav.shrink{
-  height:55px;
-  padding:0 5%;
+  height:55px;padding:0 5%;
 }
 nav.shrink .nav-logo{width:38px;height:38px;}
 nav.shrink .nav-title{font-size:1.35rem;}
@@ -49,24 +51,32 @@ nav.shrink .nav-title{font-size:1.35rem;}
 /* Mind Hurricane text */
 .nav-title{
   font-size:1.6rem;font-weight:900;text-transform:uppercase;letter-spacing:2px;
-  background:linear-gradient(90deg,var(--neon-a),var(--neon-b),var(--neon-c),var(--neon-d));
-  background-size:400% 400%;
+  background:linear-gradient(270deg,
+    var(--neon-a),
+    var(--neon-b),
+    var(--neon-c),
+    var(--neon-d),
+    var(--neon-a)
+  );
+  background-size:600% 600%;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  animation:gradientSwipe 3s linear infinite,textPulse 4s ease-in-out infinite;
+  animation:gradientSwipe 6s linear infinite,textPulse 4s ease-in-out infinite;
   transition:text-shadow .3s ease,transform .3s ease,font-size .3s ease;
 }
 .nav-title:hover{
-  text-shadow:0 0 12px rgba(0,255,200,.6);
-  transform:scale(1.05);
+  text-shadow:0 0 12px rgba(200,0,255,.6);
+  transform:scale(1.07);
 }
 @keyframes gradientSwipe{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
+  0%{background-position:0% 50%;}
+  25%{background-position:50% 50%;}
+  50%{background-position:100% 50%;}
+  75%{background-position:50% 50%;}
+  100%{background-position:0% 50%;}
 }
 @keyframes textPulse{
-  0%,100%{filter:brightness(1)}
-  50%{filter:brightness(1.4)}
+  0%,100%{filter:brightness(1);}
+  50%{filter:brightness(1.5);}
 }
 
 /* ===== NAV LINKS ===== */
@@ -75,33 +85,30 @@ nav.shrink .nav-title{font-size:1.35rem;}
 }
 .nav-links a{
   color:#fff;text-decoration:none;font-weight:600;font-size:0.95rem;
-  position:relative;
-  transition:color .3s ease,text-shadow .3s ease;
-  overflow:hidden;
+  position:relative;transition:all .4s ease;
+  overflow:hidden;display:inline-block;
 }
 
-/* Gradient hover animation */
+/* Animated gradient hover effect */
 .nav-links a::before{
   content:"";
   position:absolute;
-  left:-100%;
-  top:0;width:100%;height:100%;
+  left:-100%;top:0;width:100%;height:100%;
   background:linear-gradient(90deg,var(--neon-a),var(--neon-c),var(--neon-d),var(--neon-b));
-  background-size:200%;
-  transition:left .4s ease;
+  background-size:300% 300%;
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+  transition:left .5s ease,opacity .3s ease;
   opacity:0;
 }
 .nav-links a:hover::before{
-  left:0;
-  opacity:1;
-  animation:gradientSwipe 2s linear infinite;
+  left:0;opacity:1;
+  animation:gradientSwipe 3s linear infinite;
 }
 .nav-links a:hover{
   color:transparent;
-  text-shadow:0 0 10px rgba(0,255,200,.6);
-  transform:scale(1.08);
+  text-shadow:0 0 16px rgba(200,0,255,.7),0 0 22px rgba(0,255,200,.6);
+  transform:scale(1.15);
 }
 
 /* hamburger for mobile */
@@ -173,7 +180,6 @@ input,textarea{
   transition:transform .2s;
 }
 #contact button:hover{transform:translateY(-2px);}
-
 footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacity:.85;}
 
 .reveal{opacity:0;transform:translateY(50px);transition:opacity .9s,transform .9s;}

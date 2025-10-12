@@ -19,7 +19,7 @@ html,body{
 section{position:relative;padding:96px 8%;text-align:center}
 p{margin:0}
 
-/* animated gradient text */
+/* ===== animated gradient text ===== */
 .gradient-text{
   background:linear-gradient(270deg,var(--neon-a),var(--neon-b),var(--neon-c));
   background-size:600% 600%;
@@ -43,11 +43,11 @@ nav{
   border-bottom:1px solid var(--line);
 }
 
-/* brand section: logo + title */
+/* brand section (logo + title) */
 .brand{
   display:flex;
   align-items:center;
-  gap:25px;
+  gap:20px;
 }
 .nav-logo{
   width:58px;height:58px;border-radius:50%;
@@ -67,7 +67,7 @@ nav{
 }
 .nav-logo:hover{transform:scale(1.1) rotate(6deg);}
 
-/* Mind Hurricane text */
+/* Mind Hurricane beside logo */
 .nav-title{
   font-size:2rem;
   font-weight:900;
@@ -85,24 +85,24 @@ nav{
   50%{filter:brightness(1.6)}
 }
 
-/* right-aligned nav links */
-nav ul{
-  list-style:none;
+/* nav links (completely right) */
+.nav-links{
+  margin-left:auto;
   display:flex;
+  align-items:center;
   gap:28px;
-  margin:0;
-  padding:0;
 }
-nav a{
+.nav-links a{
   color:#fff;text-decoration:none;font-weight:600;font-size:1rem;
+  transition:color .3s ease, text-shadow .3s ease;
 }
-nav a:hover{
+.nav-links a:hover{
   color:#00ffcc;text-shadow:0 0 8px #00ffcc;
 }
 
 .spacer{height:100px}
 @media(max-width:860px){
-  nav ul{display:none}
+  .nav-links{display:none}
   .nav-title{font-size:1.5rem}
 }
 
@@ -168,14 +168,14 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
     <div class="nav-title">Mind Hurricane</div>
   </div>
 
-  <ul>
-    <li><a href="#hero">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#products">Products</a></li>
-    <li><a href="#industries">Industries</a></li>
-    <li><a href="#team">Team</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <div class="nav-links">
+    <a href="#hero">Home</a>
+    <a href="#about">About</a>
+    <a href="#products">Products</a>
+    <a href="#industries">Industries</a>
+    <a href="#team">Team</a>
+    <a href="#contact">Contact</a>
+  </div>
 </nav>
 
 <div class="spacer"></div>

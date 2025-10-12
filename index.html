@@ -69,9 +69,7 @@ nav.shrink .nav-title{font-size:1.35rem;}
 }
 @keyframes gradientSwipe{
   0%{background-position:0% 50%;}
-  25%{background-position:50% 50%;}
   50%{background-position:100% 50%;}
-  75%{background-position:50% 50%;}
   100%{background-position:0% 50%;}
 }
 @keyframes textPulse{
@@ -125,24 +123,24 @@ nav.shrink .nav-title{font-size:1.35rem;}
 
 .spacer{height:70px;}
 
-/* ===== PARTICLE BACKGROUND (STATIC) ===== */
+/* ===== PARTICLE BACKGROUND ===== */
 #particles{
-  position:fixed;inset:0;
+  position:fixed;
+  inset:0;
   z-index:-1;
   background:#000;
 }
 
-/* ===== MAIN SECTIONS ===== */
+/* ===== SECTIONS ===== */
 section{
   position:relative;
   padding:120px 8%;
   text-align:center;
-}
-#about,#contact{
-  background:rgba(0,0,0,0.6);
-  backdrop-filter:blur(4px);
+  backdrop-filter:blur(3px);
+  background:rgba(0,0,0,0.35);
   border-radius:20px;
   margin:60px auto;
+  width:80%;
   box-shadow:0 0 40px rgba(0,255,200,.08);
 }
 
@@ -225,7 +223,7 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 
 <!-- ===== SCRIPTS ===== -->
 <script>
-/* particles background (fixed to screen) */
+/* particles background */
 const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
 let w,h,particles=[];
 function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;}
@@ -234,8 +232,11 @@ addEventListener('resize',resize,{passive:true});resize();
 class Particle{
   constructor(){this.reset(true);}
   reset(all=false){
-    this.x=Math.random()*w;this.y=all?Math.random()*h:Math.random()*h;
-    this.vx=(Math.random()-.5)*.5;this.vy=(Math.random()-.5)*.5;this.size=Math.random()*2+.6;
+    this.x=Math.random()*w;
+    this.y=Math.random()*h;
+    this.vx=(Math.random()-.5)*0.2;
+    this.vy=(Math.random()-.5)*0.2;
+    this.size=Math.random()*1.8+.5;
   }
   step(){
     this.x+=this.vx;this.y+=this.vy;
@@ -244,11 +245,13 @@ class Particle{
   draw(){
     ctx.beginPath();
     ctx.arc(this.x,this.y,this.size,0,2*Math.PI);
-    ctx.fillStyle='rgba(0,255,204,.4)';
+    ctx.fillStyle='rgba(0,255,204,.25)';
+    ctx.shadowColor='rgba(0,255,200,.4)';
+    ctx.shadowBlur=8;
     ctx.fill();
   }
 }
-for(let i=0;i<150;i++)particles.push(new Particle());
+for(let i=0;i<200;i++)particles.push(new Particle());
 (function loop(){
   ctx.clearRect(0,0,w,h);
   for(const p of particles){p.step();p.draw();}

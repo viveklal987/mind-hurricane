@@ -300,7 +300,7 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 
 <!-- ===== SCRIPTS ===== -->
 <script>
-/* PARTICLES: vertical-only parallax */
+/* PARTICLES: vertical-only, always downward parallax */
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
 
@@ -321,21 +321,21 @@ const particles = Array.from({length: N}, () => ({
   tw: Math.random()*Math.PI*2
 }));
 
-/* PARALLAX (vertical only) */
+/* PARALLAX (vertical-only, clamped to downward) */
 const PARALLAX_MAX = 18;
 const PARALLAX_EASE = 0.06;
-let parallax = { y:0, ty:0 }; // no x component
+let parallax = { y:0, ty:0 };
 
 addEventListener('mousemove', (e)=>{
   const cy = innerHeight/2;
   const dy = (e.clientY - cy) / cy;     // -1 .. 1
-  parallax.ty = -dy * PARALLAX_MAX;     // translate canvas vertically only
+  parallax.ty = Math.abs(dy) * PARALLAX_MAX; // always positive => translate down only
 }, {passive:true});
 
 addEventListener('deviceorientation', (e)=>{
   if (e.beta == null) return;
-  const dy = Math.max(-1, Math.min(1, e.beta / 45)); // tilt forward/back
-  parallax.ty = dy * PARALLAX_MAX * 0.6;
+  const dy = Math.max(-1, Math.min(1, e.beta / 45));
+  parallax.ty = Math.abs(dy) * PARALLAX_MAX * 0.6; // always positive
 }, {passive:true});
 
 let paused = false;
@@ -348,7 +348,7 @@ function draw(){
 
   ctx.clearRect(0,0,canvas.width,canvas.height);
   ctx.save();
-  ctx.translate(0, parallax.y); // << vertical-only translate
+  ctx.translate(0, parallax.y); // vertical translate only (downward)
 
   // short link lines
   ctx.lineWidth = 0.5;

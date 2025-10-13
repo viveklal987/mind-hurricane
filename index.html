@@ -303,7 +303,8 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 /* MULTI-LAYER PARALLAX PARTICLES
    - 3 layers (far/mid/near)
    - constant downward drift per particle
-   - vertical parallax from mouse/tilt + subtle scroll-based parallax
+   - parallax in X and Y from mouse/tilt
+   - subtle scroll-based parallax on Y
 */
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
@@ -318,8 +319,9 @@ const LAYERS = [
   { name:'near', count:70,  vy:[0.10,0.22], r:[0.9,1.8],  depth:1.00, scroll:0.26 },
 ];
 const TWINKLE = 0.035;
-const PARALLAX_MAX = 22;   // max px shift downward by pointer/tilt
-const PARALLAX_EASE = 0.06;
+const PARALLAX_MAX_X = 24;  // horizontal max px
+const PARALLAX_MAX_Y = 24;  // vertical   max px
+const PARALLAX_EASE  = 0.06;
 
 function randIn([a,b]){ return a + Math.random()*(b-a); }
 function makeParticle(layer){
@@ -337,18 +339,23 @@ const layers = LAYERS.map(cfg => ({
   particles: Array.from({length: cfg.count}, () => makeParticle(cfg))
 }));
 
-/* Vertical-only parallax target from mouse/tilt; always positive (down) */
-let parallax = { y:0, ty:0 };
+/* Parallax target from mouse/tilt; both axes supported */
+let parallax = { x:0, y:0, tx:0, ty:0 };
+
 addEventListener('mousemove', e=>{
-  const cy = innerHeight/2;
-  const dy = (e.clientY - cy) / cy;          // -1..1
-  parallax.ty = Math.abs(dy) * PARALLAX_MAX; // 0..PARALLAX_MAX
+  const cx = innerWidth/2, cy = innerHeight/2;
+  const dx = (e.clientX - cx) / cx;  // -1..1
+  const dy = (e.clientY - cy) / cy;  // -1..1
+  parallax.tx = dx * PARALLAX_MAX_X;           // left/right
+  parallax.ty = Math.abs(dy) * PARALLAX_MAX_Y; // always down
 }, {passive:true});
 
 addEventListener('deviceorientation', e=>{
-  if (e.beta == null) return;
-  const dy = Math.max(-1, Math.min(1, e.beta / 45));
-  parallax.ty = Math.abs(dy) * PARALLAX_MAX * 0.6;
+  if (e.beta == null || e.gamma == null) return;
+  const dx = Math.max(-1, Math.min(1, e.gamma / 45)); // left/right tilt
+  const dy = Math.max(-1, Math.min(1, e.beta  / 45)); // forward/back tilt
+  parallax.tx = dx * PARALLAX_MAX_X * 0.8;
+  parallax.ty = Math.abs(dy) * PARALLAX_MAX_Y * 0.6;
 }, {passive:true});
 
 /* Perf guard when tab hidden */
@@ -358,6 +365,7 @@ document.addEventListener('visibilitychange', () => { paused = document.hidden; 
 function draw(){
   if (paused) { requestAnimationFrame(draw); return; }
 
+  parallax.x += (parallax.tx - parallax.x) * PARALLAX_EASE;
   parallax.y += (parallax.ty - parallax.y) * PARALLAX_EASE;
 
   const scrollY = window.scrollY || 0;
@@ -369,17 +377,18 @@ function draw(){
     const { cfg, particles } = layer;
 
     ctx.save();
-    const layerShiftY = parallax.y * cfg.depth + scrollY * cfg.scroll * 0.08; // subtle scroll parallax
-    ctx.translate(0, layerShiftY);
+    const layerShiftX = parallax.x * cfg.depth;                         // new X parallax
+    const layerShiftY = parallax.y * cfg.depth + scrollY * cfg.scroll * 0.08;
+    ctx.translate(layerShiftX, layerShiftY);
 
-    // faint network lines per layer (lighter for far layer)
+    // faint network lines per layer
     ctx.lineWidth = 0.5;
     for(let i=0;i<particles.length;i++){
       for(let j=i+1;j<i+10 && j<particles.length;j++){
         const dx = particles[i].x - particles[j].x;
         const dy = particles[i].y - particles[j].y;
         const d2 = dx*dx + dy*dy;
-        const max = 110 + cfg.depth*25; // slightly farther on near layers
+        const max = 110 + cfg.depth*25;
         if(d2 < max*max){
           const a = 0.05 * (1 - Math.sqrt(d2)/max) * cfg.depth;
           if (a > 0){
@@ -395,8 +404,10 @@ function draw(){
 
     // particles
     for(const p of particles){
-      p.y += p.vy; // constant downward
+      // constant downward drift
+      p.y += p.vy;
 
+      // wrap to top when leaving bottom
       if(p.y - p.r > canvas.height){
         p.y = -p.r - Math.random()*20;
         p.x = Math.random()*canvas.width;

@@ -300,17 +300,17 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 
 <!-- ===== SCRIPTS ===== -->
 <script>
-/* PARTICLES: gentle downward drift + vertical-only, downward parallax */
+/* PARTICLES: gentle downward drift behind the site + vertical-only (downward) parallax */
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
 
 function sizeCanvas(){ canvas.width = innerWidth; canvas.height = innerHeight; }
 addEventListener('resize', sizeCanvas, {passive:true}); sizeCanvas();
 
-const N = 220;
-const DRIFT_MIN = 0.05;  // px per frame
-const DRIFT_MAX = 0.18;  // px per frame
-const TWINKLE_RATE = 0.035;
+const COUNT = 220;       // how many particles
+const DRIFT_MIN = 0.05;  // px/frame (slow)
+const DRIFT_MAX = 0.18;  // px/frame (fast)
+const TWINKLE = 0.035;   // twinkle speed
 
 function makeParticle(){
   return {
@@ -323,25 +323,26 @@ function makeParticle(){
   };
 }
 
-const particles = Array.from({length: N}, makeParticle);
+const particles = Array.from({length: COUNT}, makeParticle);
 
-/* PARALLAX (vertical-only, clamped to downward) */
+/* Parallax: vertical-only, always downward */
 const PARALLAX_MAX = 18;
 const PARALLAX_EASE = 0.06;
 let parallax = { y:0, ty:0 };
 
-addEventListener('mousemove', (e)=>{
+addEventListener('mousemove', e=>{
   const cy = innerHeight/2;
-  const dy = (e.clientY - cy) / cy;     // -1 .. 1
-  parallax.ty = Math.abs(dy) * PARALLAX_MAX; // always positive => translate down only
+  const dy = (e.clientY - cy) / cy;          // -1..1
+  parallax.ty = Math.abs(dy) * PARALLAX_MAX; // 0..PARALLAX_MAX
 }, {passive:true});
 
-addEventListener('deviceorientation', (e)=>{
+addEventListener('deviceorientation', e=>{
   if (e.beta == null) return;
   const dy = Math.max(-1, Math.min(1, e.beta / 45));
-  parallax.ty = Math.abs(dy) * PARALLAX_MAX * 0.6; // always positive
+  parallax.ty = Math.abs(dy) * PARALLAX_MAX * 0.6;
 }, {passive:true});
 
+/* Pause when tab hidden (perf) */
 let paused = false;
 document.addEventListener('visibilitychange', () => { paused = document.hidden; });
 
@@ -352,12 +353,12 @@ function draw(){
 
   ctx.clearRect(0,0,canvas.width,canvas.height);
   ctx.save();
-  ctx.translate(0, parallax.y); // vertical translate only (downward)
+  ctx.translate(0, parallax.y); // only down
 
-  // faint network lines
+  // optional faint network lines (comment out to keep only dots)
   ctx.lineWidth = 0.5;
-  for(let i=0;i<N;i++){
-    for(let j=i+1;j<i+12 && j<N;j++){
+  for(let i=0;i<COUNT;i++){
+    for(let j=i+1;j<i+12 && j<COUNT;j++){
       const dx = particles[i].x - particles[j].x;
       const dy = particles[i].y - particles[j].y;
       const d2 = dx*dx + dy*dy;
@@ -373,7 +374,7 @@ function draw(){
   }
 
   for(const p of particles){
-    // gentle constant downward drift
+    // constant downward drift
     p.y += p.vy;
 
     // wrap to top when leaving bottom
@@ -383,13 +384,13 @@ function draw(){
       p.vy = DRIFT_MIN + Math.random()*(DRIFT_MAX - DRIFT_MIN);
     }
 
-    // twinkle
-    p.tw += TWINKLE_RATE;
-    const twinkle = 0.5 + 0.5*Math.sin(p.tw);
-    const alpha = Math.min(1, p.a * (0.7 + 0.3*twinkle));
+    // twinkle glow
+    p.tw += TWINKLE;
+    const tw = 0.5 + 0.5*Math.sin(p.tw);
+    const alpha = Math.min(1, p.a * (0.7 + 0.3*tw));
 
     ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
     ctx.fillStyle = `rgba(0,255,204,${alpha})`;
     ctx.shadowColor = 'rgba(0,255,210,.85)';
     ctx.shadowBlur = 10;

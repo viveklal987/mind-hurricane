@@ -300,7 +300,7 @@ footer{padding:28px 8%;text-align:center;border-top:1px solid var(--line);opacit
 
 <!-- ===== SCRIPTS ===== -->
 <script>
-/* PARTICLES: vertical-only, always downward parallax */
+/* PARTICLES: gentle downward drift + vertical-only, downward parallax */
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
 
@@ -308,18 +308,22 @@ function sizeCanvas(){ canvas.width = innerWidth; canvas.height = innerHeight; }
 addEventListener('resize', sizeCanvas, {passive:true}); sizeCanvas();
 
 const N = 220;
-const SPEED = 0.22;
+const DRIFT_MIN = 0.05;  // px per frame
+const DRIFT_MAX = 0.18;  // px per frame
 const TWINKLE_RATE = 0.035;
 
-const particles = Array.from({length: N}, () => ({
-  x: Math.random()*canvas.width,
-  y: Math.random()*canvas.height,
-  vx: (Math.random()-0.5)*SPEED,
-  vy: (Math.random()-0.5)*SPEED,
-  r: 0.6 + Math.random()*1.2,
-  a: 0.55 + Math.random()*0.4,
-  tw: Math.random()*Math.PI*2
-}));
+function makeParticle(){
+  return {
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    vy: DRIFT_MIN + Math.random()*(DRIFT_MAX - DRIFT_MIN), // constant downward speed
+    r: 0.6 + Math.random()*1.2,
+    a: 0.55 + Math.random()*0.4,
+    tw: Math.random()*Math.PI*2
+  };
+}
+
+const particles = Array.from({length: N}, makeParticle);
 
 /* PARALLAX (vertical-only, clamped to downward) */
 const PARALLAX_MAX = 18;
@@ -350,7 +354,7 @@ function draw(){
   ctx.save();
   ctx.translate(0, parallax.y); // vertical translate only (downward)
 
-  // short link lines
+  // faint network lines
   ctx.lineWidth = 0.5;
   for(let i=0;i<N;i++){
     for(let j=i+1;j<i+12 && j<N;j++){
@@ -369,10 +373,17 @@ function draw(){
   }
 
   for(const p of particles){
-    p.x += p.vx; p.y += p.vy;
-    if(p.x<0) p.x += canvas.width; if(p.x>canvas.width) p.x -= canvas.width;
-    if(p.y<0) p.y += canvas.height; if(p.y>canvas.height) p.y -= canvas.height;
+    // gentle constant downward drift
+    p.y += p.vy;
 
+    // wrap to top when leaving bottom
+    if(p.y - p.r > canvas.height){
+      p.y = -p.r - Math.random()*20;
+      p.x = Math.random()*canvas.width;
+      p.vy = DRIFT_MIN + Math.random()*(DRIFT_MAX - DRIFT_MIN);
+    }
+
+    // twinkle
     p.tw += TWINKLE_RATE;
     const twinkle = 0.5 + 0.5*Math.sin(p.tw);
     const alpha = Math.min(1, p.a * (0.7 + 0.3*twinkle));
